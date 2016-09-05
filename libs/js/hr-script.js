@@ -108,50 +108,11 @@ app.config(function($routeProvider) {
 				}
 				});
 		 }
-
-		 $scope.openUpdate = function (x,y) {
-			 $scope.m.xname = x;
-			 $scope.m.xitemno = y;
-			 $uibModal.open({
-				animation: true,
-				ariaLabelledBy: 'modal-title',
-				ariaDescribedBy: 'modal-body',
-				templateUrl: 'updateContent.html',
-				controller : 'UpdateModalInstanceCtrl',
-				controllerAs: '$ctrl',
-				resolve: {
-					passedVariable: function () {
-					return x;
-					}
-				}
-				});
-		 }
-
 		
 		$scope.class = 'page-animate';
 
 		
 	})
-
-	app.controller('UpdateModalInstanceCtrl',function($scope,$uibModalInstance,Globalvar,$http,$route){
-		$scope.m = Globalvar;
-		$http.post('get-single-appointee.php', {itemno:$scope.m.xitemno}) .success(function(data){
-			$scope.m.data = data;
-			console.log($scope.m.data[0]);
-		});
-		$scope.ok = function () {
-			
-			$http.post('edit-appointee.php', {itemno:$scope.m.itemno}) .success(function(data){
-				$uibModalInstance.close();
-				$route.reload();
-			});
-		};
-
-		$scope.cancel = function () {
-			$uibModalInstance.dismiss('cancel');
-		};
-	})
-
 	app.controller('ModalInstanceCtrl',function($scope,$uibModalInstance,Globalvar,$http,$route){
 		$scope.m = Globalvar;
 		console.log($scope.m.itemno);
