@@ -1,4 +1,4 @@
-var app = angular.module('mainApp',['ngRoute','ngAnimate','angular.filter','ui.bootstrap','ngScrollbar']);
+var app = angular.module('mainApp',['ngRoute','ngAnimate','angular.filter','ui.bootstrap','angularUtils.directives.dirPagination']);
 app.factory("Globalvar",function(){
         return {};
 });

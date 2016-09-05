@@ -17,8 +17,7 @@
     
     <?php echo customcss; ?>
     <?php echo angular; ?>
-    <script src="../../libs/js/angular-scrollbar.min.js"></script>
-    <link rel-"sctylesheet" href="../../libs/css/scrollbar.min.css">
+    <script src="../../libs/js/dirPaginate.js"></script>
     <?php echo angularfilter; ?>    
     <?php echo angularroute; ?>
     <?php echo angularanimate; ?>

@@ -1,5 +1,7 @@
 
-<legend>List of Appointees</legend>
+<div class="page-header">
+  <h1><center><small>DepEd Hiring and Promotion System</small></center></h1>
+</div>
 <input type="text" ng-model="hunt" placeholder="Search here ..."/>
 <table class="table table-hover centered">
     <thead>
@@ -13,7 +15,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="x in appointee | filterBy:['itemno','name','position','dateinformed','replay']:hunt">
+        <tr dir-paginate="x in appointee | itemsPerPage: 5 | filter: hunt">
             <td><center>{{x.itemno}}</center></td>
             <td><center>{{x.name}}</center></td>
             <td><center>{{x.position}}</center></td>
@@ -24,30 +26,4 @@
         </tr>
     </tbody>
 </table>
-
-
-<legend>List of Appointees</legend>
-<input type="text" ng-model="hunt" placeholder="Search here ..."/>
-<table class="table table-hover centered">
-    <thead>
-        <tr class="bg-primary">
-            <td><center>Item No.</center></td>
-            <td><center>Name</center></td>
-            <td><center>Position</center></td>
-            <td><center>Date Informed</center></td>
-            <td><center>Reply</center></td>
-            <td colspan="2"></td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="x in appointee | filterBy:['itemno','name','position','dateinformed','replay']:hunt">
-            <td><center>{{x.itemno}}</center></td>
-            <td><center>{{x.name}}</center></td>
-            <td><center>{{x.position}}</center></td>
-            <td><center>{{x.dateinformed}}</center></td>
-            <td><center>{{x.replay}}</center></td>
-            <td><center><button class="btn btn-xs btn-warning glyhpicon glyphicon-pencil"> UPDATE</button></center></td>
-            <td><center><button class="btn btn-xs btn-danger glyhpicon glyphicon-minus"> REMOVE</button></center></td>
-        </tr>
-    </tbody>
-</table>
+<dir-pagination-controls></dir-pagination-controls>
