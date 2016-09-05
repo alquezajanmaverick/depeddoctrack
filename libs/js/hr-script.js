@@ -52,34 +52,70 @@ app.config(function($routeProvider) {
 	});
 
 	// create the controller and inject Angular's $scope
-	app.controller('mainCtrl', function($scope,Globalvar,$http) {
+	app.controller('mainCtrl', function($scope,Globalvar,$http,$route) {
+		//reload
+		var ctrl = this;
+		ctrl.reloadData = function(){
+			$route.reload();
+		}
+		//--reload
 		$scope.m = Globalvar;
 		$scope.message = $scope.m.message;
 		// create a message to display in our view
 		$scope.class = 'page-animate';
-		 $http.get("get-appointee.php")
+		 $http.get("get-position.php")
         .then(function(response) {
-            $scope.appointee = response.data;
+            $scope.poss = response.data;
         });
 	});
 
-	app.controller('appointeeCtrl', function($scope,Globalvar) {
+	app.controller('appointeeCtrl', function($scope,Globalvar,$route,$http) {
+		//reload
+		var ctrl = this;
+		ctrl.reloadData = function(){
+			$route.reload();
+		}
+		//--reload
+		$http.get("get-appointee.php")
+		.then(function(response) {
+			$scope.appoint = response.data;
+		
+		});
+
 		$scope.m = Globalvar;
 		$scope.message = $scope.m.message; 
 		$scope.class = 'page-animate';
 	});
 
-	app.controller('congratulatoryCtrl', function($scope,Globalvar) {
+	app.controller('congratulatoryCtrl', function($scope,Globalvar,$route) {
+		//reload
+		var ctrl = this;
+		ctrl.reloadData = function(){
+			$route.reload();
+		}
+		//--reload
 		$scope.m = Globalvar;
 		$scope.message = $scope.m.message; 
 		$scope.class = 'page-animate';
 	});
 
-	app.controller('remarksCtrl', function($scope,Globalvar) {
+	app.controller('remarksCtrl', function($scope,Globalvar,$route) {
+		//reload
+		var ctrl = this;
+		ctrl.reloadData = function(){
+			$route.reload();
+		}
+		//--reload
 		$scope.class = 'page-animate';
 	});
 
-	app.controller('processCtrl', function($scope,Globalvar) {
+	app.controller('processCtrl', function($scope,Globalvar,$route) {
+		//reload
+		var ctrl = this;
+		ctrl.reloadData = function(){
+			$route.reload();
+		}
+		//--reload
 		$scope.class = 'page-animate';
 	});
 	//add appointee

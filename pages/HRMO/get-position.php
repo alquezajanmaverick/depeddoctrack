@@ -13,5 +13,5 @@ $row = $db->rowCount();
 if($row >0)
 {
     $js = json_encode($r);
+    echo $js;
 }
-echo $js;

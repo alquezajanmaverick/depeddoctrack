@@ -14,7 +14,7 @@
             <li><a href="#remarks" auto-refresh><i class="fa fa-eye" aria-hidden="true"></i> Remarks</a></li>
             <li><a href="#process" auto-refresh><i class="fa fa-book"></i> Process of Papers</a></li>
             <li class="divider"></li>
-            <li><a href="#process" auto-refresh><i class="fa fa-sign-out" aria-hidden="true"></i> Sign-Out</a></li>
+            <li><a href="../../log-out.php" auto-refresh><i class="fa fa-sign-out" aria-hidden="true"></i> Sign-Out</a></li>
             
         </ul>
         </div>

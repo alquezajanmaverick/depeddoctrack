@@ -12,7 +12,20 @@
             <td><center>Vacant Position</center></td>
             <td><center>Date Informed</center></td>
             <td><center>Reply</center></td>
-            <td colspan="2"></td>
+            <td colspan="2"><center>Menu<span class="caret"></span></center></td>
         </tr>
     </thead>
+    <tbody>
+        <tr dir-paginate="x in appoint | filter: hunt | itemsPerPage: 5">
+            <td><center>{{x.itemno}}</center></td>
+            <td><center>{{x.name}}</center></td>
+            <td><center>{{x.position}}</center></td>
+            <td><center>{{x.dateinformed}}</center></td>
+            <td><center>{{x.reply}}</center></td>
+            <td><button class="btn btn-warning btn-xs glyphicon glyphicon-pencil"> UPDATE</button></td>
+            <td><button class="btn btn-danger btn-xs glyphicon glyphicon-trash"> REMOVE</button></td>
+        </tr>
+    </tbody>
 </table>
+
+<dir-pagination-controls></dir-pagination-controls>

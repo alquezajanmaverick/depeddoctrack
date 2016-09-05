@@ -1,28 +1,29 @@
 
 <div class="page-header">
-  <h1><center><small>List of Appointees</small></center></h1>
+  <h1><center><small>List of Vacant Position/s:</small></center></h1>
 </div>
 <input type="text" ng-model="hunt" placeholder="Search here ..."/>
 <table class="table table-hover centered">
     <thead>
         <tr class="bg-primary">
             <td><center>Item No.</center></td>
-            <td><center>Name</center></td>
             <td><center>Position</center></td>
-            <td><center>Date Informed</center></td>
-            <td><center>Reply</center></td>
-            <td colspan="2"></td>
+            <td><center>Category</center></td>
+            <td><center>School Level</center></td>
+            <td><center>District</center></td>
+            <td><center>School Name</center></td>
+            <td><center>School ID</center></td>
         </tr>
     </thead>
     <tbody>
-        <tr dir-paginate="x in appointee | itemsPerPage: 5 | filter: hunt">
+        <tr dir-paginate="x in poss | itemsPerPage: 5 | filter: hunt">
             <td><center>{{x.itemno}}</center></td>
-            <td><center>{{x.name}}</center></td>
             <td><center>{{x.position}}</center></td>
-            <td><center>{{x.dateinformed}}</center></td>
-            <td><center>{{x.replay}}</center></td>
-            <td><center><button class="btn btn-xs btn-warning glyhpicon glyphicon-pencil"> UPDATE</button></center></td>
-            <td><center><button class="btn btn-xs btn-danger glyhpicon glyphicon-minus"> REMOVE</button></center></td>
+            <td><center>{{x.positioncategory}}</center></td>
+            <td><center>{{x.schoollevel}}</center></td>
+            <td><center>{{x.district}}</center></td>
+            <td><center>{{x.schoolname}}</center></td>
+            <td><center>{{x.schoolid}}</center></td>
         </tr>
     </tbody>
 </table>
