@@ -1,4 +1,4 @@
-var app = angular.module('mainApp',['ngRoute','ngAnimate','angular.filter','ui.bootstrap']);
+var app = angular.module('mainApp',['ngRoute','ngAnimate','angular.filter','ui.bootstrap','ngScrollbar']);
 app.factory("Globalvar",function(){
         return {};
 });
@@ -83,18 +83,26 @@ app.config(function($routeProvider) {
 		$scope.class = 'page-animate';
 	});
 	//add appointee
-	app.controller('addCtrl', function($scope,Globalvar,$http) {
+	app.controller('addCtrl', function($scope,Globalvar,$http,$route) {
+		
+		//reload
+		var ctrl = this;
+		ctrl.reloadData = function(){
+			$route.reload();
+		}
+		//--reload
 		$scope.xForm = {};
 		$scope.class = 'page-animate';
 		 $http.get("get-position.php")
 		.then(function(response) {
-			$scope.appointee = response.data;
+			$scope.pos = response.data;
 		
 		});
 		$scope.ProcessForm = function(){
 			console.log($scope.xForm.position)
 			$http.post('add-appointee.php', $scope.xForm) .success(function(data){
 				//$('#modal-container-505047').modal('show')
+				console.log();
 			});
 		}
 		$scope.today = function() {
