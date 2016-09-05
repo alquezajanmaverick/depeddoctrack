@@ -60,17 +60,25 @@ app.config(function($routeProvider) {
 		}
 		//--reload
 		$scope.m = Globalvar;
+		$scope.m.hasVacant = false;
 		$scope.message = $scope.m.message;
 		// create a message to display in our view
 		$scope.class = 'page-animate';
 		 $http.get("get-position.php")
         .then(function(response) {
             $scope.poss = response.data;
+			console.log($scope.poss.length)
+			if($scope.poss.length > 0)
+			{
+				$scope.m.hasVacant = true;
+			}
         });
 	});
 
-	app.controller('appointeeCtrl', function($scope,Globalvar,$route,$http) {
+	app.controller('appointeeCtrl', function($scope,Globalvar,$route,$http,$uibModal) {
+		$scope.m = Globalvar;
 		//reload
+		$scope.hasVacant = false;
 		var ctrl = this;
 		ctrl.reloadData = function(){
 			$route.reload();
@@ -79,13 +87,86 @@ app.config(function($routeProvider) {
 		$http.get("get-appointee.php")
 		.then(function(response) {
 			$scope.appoint = response.data;
-		
+			
 		});
+		 
+		 $scope.open = function (x,y) {
+			 $scope.m.varpass = x;
+			 $scope.m.itemno = y
+			 $uibModal.open({
+				animation: true,
+				ariaLabelledBy: 'modal-title',
+				ariaDescribedBy: 'modal-body',
+				templateUrl: 'myModalContent.html',
+				controller : 'ModalInstanceCtrl',
+				controllerAs: '$ctrl',
+				size: 'sm',
+				resolve: {
+					passedVariable: function () {
+					return x;
+					}
+				}
+				});
+		 }
 
-		$scope.m = Globalvar;
-		$scope.message = $scope.m.message; 
+		 $scope.openUpdate = function (x,y) {
+			 $scope.m.xname = x;
+			 $scope.m.xitemno = y;
+			 $uibModal.open({
+				animation: true,
+				ariaLabelledBy: 'modal-title',
+				ariaDescribedBy: 'modal-body',
+				templateUrl: 'updateContent.html',
+				controller : 'UpdateModalInstanceCtrl',
+				controllerAs: '$ctrl',
+				resolve: {
+					passedVariable: function () {
+					return x;
+					}
+				}
+				});
+		 }
+
+		
 		$scope.class = 'page-animate';
-	});
+
+		
+	})
+
+	app.controller('UpdateModalInstanceCtrl',function($scope,$uibModalInstance,Globalvar,$http,$route){
+		$scope.m = Globalvar;
+		$http.post('get-single-appointee.php', {itemno:$scope.m.xitemno}) .success(function(data){
+			$scope.m.data = data;
+			console.log($scope.m.data[0]);
+		});
+		$scope.ok = function () {
+			
+			$http.post('edit-appointee.php', {itemno:$scope.m.itemno}) .success(function(data){
+				$uibModalInstance.close();
+				$route.reload();
+			});
+		};
+
+		$scope.cancel = function () {
+			$uibModalInstance.dismiss('cancel');
+		};
+	})
+
+	app.controller('ModalInstanceCtrl',function($scope,$uibModalInstance,Globalvar,$http,$route){
+		$scope.m = Globalvar;
+		console.log($scope.m.itemno);
+		$scope.ok = function () {
+			
+			$http.post('delete-appointee.php', {itemno:$scope.m.itemno}) .success(function(data){
+				$uibModalInstance.close();
+				$route.reload();
+			});
+		};
+
+		$scope.cancel = function () {
+			$uibModalInstance.dismiss('cancel');
+		};
+	})
 
 	app.controller('congratulatoryCtrl', function($scope,Globalvar,$route) {
 		//reload
