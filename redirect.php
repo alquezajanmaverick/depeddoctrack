@@ -1,0 +1,13 @@
+<?php
+include('config.php');
+if(isset($_SESSION['user'])){
+    if($_SESSION['user']=="SGOD"){
+        header("Location:pages/SGOD/");
+    }
+    elseif($_SESSION['user']=="HRMO"){
+        header("Location:pages/HRMO/");
+    }
+}
+else{
+    header("Location:index.php");
+}
