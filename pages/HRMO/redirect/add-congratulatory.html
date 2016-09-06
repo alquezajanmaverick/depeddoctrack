@@ -1,0 +1,48 @@
+
+<div class="panel panel-primary">
+      <div class="panel-heading">
+            <h3 class="panel-title">Congratulatory Panel</h3>
+      </div>
+      <div class="panel-body">
+          
+          <form action="" method="POST" role="form">
+              <div class="form-group">
+                  <div class="checkbox">
+                      <label>
+                          <input type="checkbox" value="">
+                          Congratulatory Released to SDS:
+                      </label>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="">Due Date of Submission:</label>
+                  <p class="input-group form-control">
+                        <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" datepicker-options="datepicker" ng-model="xForm.dateinformed" ng-init="xForm.dateinformed|date:'yyyy-MM-dd'" is-open="popup2.opened" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+              </div>
+              <legend>Remarks:</legend>
+              <div class="form-group">
+                  <label for="">Effectivity of Appointment:</label>
+                  <input type="text" class="form-control" id="" placeholder="Input field">
+              </div>
+
+              <div class="form-group">
+                  <label for="">Remarks:</label>
+                  <div class="btn-group">
+                        <label class="btn btn-danger" ng-model="radioModel" uib-btn-radio="'Left'">Not Submitted</label>
+                        <label class="btn btn-warning" ng-model="radioModel" uib-btn-radio="'Middle'">Returned for Compliance</label>
+                        <label class="btn btn-success" ng-model="radioModel" uib-btn-radio="'Right'">Complete and Received</label>
+                    </div>
+              </div>
+              
+              
+              
+              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="button" class="btn btn-danger">Home</button>
+          </form>
+          
+      </div>
+</div>

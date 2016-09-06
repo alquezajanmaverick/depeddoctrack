@@ -40,10 +40,10 @@ app.config(function($routeProvider) {
 				controller  : 'congratulatoryCtrl'
 			})
 
-            // route for the remarks page
-			.when('/remarks', {
-				templateUrl : 'redirect/remarks.html',
-				controller  : 'remarksCtrl'
+			// route for the congratulatory page
+			.when('/add-congratulatory', {
+				templateUrl : 'redirect/add-congratulatory.html',
+				controller  : 'addcongratulatoryCtrl'
 			})
 
             // route for the process page
@@ -197,6 +197,7 @@ app.config(function($routeProvider) {
 			console.log($scope.xForm.position)
 			$http.post('add-appointee.php', $scope.xForm) .success(function(data){
 				//$('#modal-container-505047').modal('show')
+				location.href = '#/add-congratulatory';
 				console.log();
 			});
 		}
@@ -339,4 +340,38 @@ app.config(function($routeProvider) {
 			$scope.monitoring = response.data;
 		});
 		
+	})
+
+	app.controller('addcongratulatoryCtrl',function($scope,$http,$route){
+		$scope.today = function() {
+		//$scope.xForm.dateinformed = new Date();
+		};
+		$scope.today();
+
+		$scope.clear = function() {
+			$scope.xForm.dateinformed = null;
+		};
+
+
+
+		// Disable weekend selection
+		function disabled(data) {
+			var date = data.date,
+			mode = data.mode;
+			return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+		}
+
+
+		$scope.open2 = function() {
+			$scope.popup2.opened = true;
+		};
+
+
+		$scope.formats = ['yyyy-MM-dd'];
+		$scope.format = $scope.formats[0];
+		$scope.altInputFormats = ['yyy-MM-dd'];
+
+		$scope.popup2 = {
+			opened: false
+		};
 	})
