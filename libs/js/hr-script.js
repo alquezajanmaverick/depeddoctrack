@@ -49,6 +49,11 @@ app.config(function($routeProvider) {
 				templateUrl : 'redirect/add-appointee.html',
 				controller  : 'addCtrl'
 			})
+
+			.when('/edit-appointee', {
+				templateUrl : 'redirect/edit-appointee.html',
+				controller  : 'editCtrl'
+			})
 	});
 
 	// create the controller and inject Angular's $scope
@@ -109,6 +114,11 @@ app.config(function($routeProvider) {
 				});
 		 }
 		
+		 $scope.openEdit = function(x){
+			 $scope.m.itemno = x;
+			 location.href = '#edit-appointee';
+		 }
+
 		$scope.class = 'page-animate';
 
 		
@@ -216,3 +226,17 @@ app.config(function($routeProvider) {
 		};
 
 	});
+
+	app.controller('editCtrl',function($scope,$http,$route,Globalvar){
+		//reload
+		var ctrl = this;
+		ctrl.reloadData = function(){
+			$route.reload();
+		}
+		//--reload
+		$scope.m = Globalvar;
+		$scope.message = $scope.m.message; 
+		$http.post('get-single-appointee.php', {itemno:$scope.m.itemno}) .success(function(data){
+			$scope.appointee = data;
+		});
+	})

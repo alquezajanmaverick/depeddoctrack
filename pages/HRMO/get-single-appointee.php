@@ -10,5 +10,5 @@ $db->query("CALL fetchsingleappointee(?)");
 $db->bind(1,$request->itemno);
 $r = $db->single();
 
-$js = json_encode(array_values($r));
+$js = json_encode($r);
 echo $js;
