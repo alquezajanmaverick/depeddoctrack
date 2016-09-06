@@ -247,7 +247,7 @@ app.config(function($routeProvider) {
 			$scope.position = data.position;
 			$scope.reply - data.reply;
 			$scope.xForm = data;
-			console.log($scope.xForm);
+			console.log($scope.xForm.position);
 		});
 
 		$scope.ProcessForm = function(){
