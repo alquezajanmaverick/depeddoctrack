@@ -23,6 +23,11 @@ app.config(function($routeProvider) {
 				controller  : 'mainCtrl'
 			})
 
+			.when('/monitor', {
+				templateUrl : 'redirect/monitoring.html',
+				controller  : 'monitorCtrl'
+			})
+
 			// route for the appointee page
 			.when('/appointee', {
 				templateUrl : 'redirect/appointee.html',
@@ -325,3 +330,13 @@ app.config(function($routeProvider) {
 		};
 
 	});
+
+	app.controller('monitorCtrl',function($scope,$http,$route){
+		$scope.dynamic = 0;
+		var type
+		$http.get("monitor.php")
+		.then(function(response) {
+			$scope.monitoring = response.data;
+		});
+		
+	})

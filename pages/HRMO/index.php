@@ -9,6 +9,7 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#/" auto-refresh><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="#/monitor" auto-refresh><i class="fa fa-eye"></i> Monitoring</a></li>
             <li><a href="#appointee" auto-refresh><i class="fa fa-suitcase" aria-hidden="true"></i> Appointee</a></li>
             <li><a href="#congratulatory" auto-refresh><i class="fa fa-comment"></i> Congratulatory</a></li>
             <li><a href="#remarks" auto-refresh><i class="fa fa-eye" aria-hidden="true"></i> Remarks</a></li>

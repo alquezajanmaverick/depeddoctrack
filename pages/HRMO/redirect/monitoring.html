@@ -1,0 +1,15 @@
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th><center>Name</center></th>
+            <th><center>Progress</center></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="x in monitoring">
+            <td><center>{{x.name}}</center></td>
+            <td>{{x.progress}}%<center><uib-progressbar class="progress-striped active" value="x.progress" type="primary"></uib-progressbar></center></td>
+        </tr>
+    </tbody>
+</table>
