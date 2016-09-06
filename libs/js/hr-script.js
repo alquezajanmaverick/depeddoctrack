@@ -12,6 +12,8 @@ app.directive('auto-refresh',function($location,$route){
 		})
 	}
 })
+
+
 app.config(function($routeProvider) {
 		$routeProvider
 
@@ -95,7 +97,7 @@ app.config(function($routeProvider) {
 			
 		});
 		 
-		 $scope.open = function (x,y) {
+		$scope.open = function (x,y) {
 			 $scope.m.varpass = x;
 			 $scope.m.itemno = y
 			 $uibModal.open({
@@ -199,7 +201,7 @@ app.config(function($routeProvider) {
 		$scope.today();
 
 		$scope.clear = function() {
-			$scope.dateinformed = null;
+			$scope.xForm.dateinformed = null;
 		};
 
 
@@ -227,7 +229,9 @@ app.config(function($routeProvider) {
 
 	});
 
-	app.controller('editCtrl',function($scope,$http,$route,Globalvar){
+	app.controller('editCtrl',function($scope,$http,$route,Globalvar,$uibModal){
+		$scope.xForm = {};
+		$scope.date = new Date();
 		//reload
 		var ctrl = this;
 		ctrl.reloadData = function(){
@@ -238,5 +242,79 @@ app.config(function($routeProvider) {
 		$scope.message = $scope.m.message; 
 		$http.post('get-single-appointee.php', {itemno:$scope.m.itemno}) .success(function(data){
 			$scope.appointee = data;
+			$scope.date = new Date(data.dateinformed);
+			data.dateinformed = $scope.date;
+			$scope.position = data.position;
+			$scope.reply - data.reply;
+			$scope.xForm = data;
+			console.log($scope.xForm);
 		});
-	})
+
+		$scope.ProcessForm = function(){
+			console.log($scope.xForm.position)
+			$http.post('edit-appointee.php', $scope.xForm) .success(function(data){
+				//$('#modal-container-505047').modal('show')
+				$scope.open();
+
+			});
+		}
+		$scope.today = function() {
+		//$scope.xForm.dateinformed = new Date();
+		};
+
+		$scope.today();
+
+		$scope.clear = function() {
+			
+			$scope.xForm.dateinformed = null;
+		};
+
+
+
+		// Disable weekend selection
+		function disabled(data) {
+			var date = data.date,
+			mode = data.mode;
+			return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+		}
+
+
+		$scope.open2 = function() {
+			$scope.popup2.opened = true;
+		};
+
+
+		$scope.format = 'yyyy-MM-dd';
+		$scope.altInputFormats = ['yyyy-MM-dd'];
+
+		$scope.popup2 = {
+			opened: false
+			
+		};
+		//modal
+		$scope.open = function () {
+			 $uibModal.open({
+				animation: true,
+				ariaLabelledBy: 'modal-title',
+				ariaDescribedBy: 'modal-body',
+				templateUrl: 'myModalOK.html',
+				controller : 'ModalOKCtrl',
+				controllerAs: '$ctrl',
+				size: 'sm',
+				resolve: {
+				}
+				});
+		 }
+		
+	});
+
+	app.controller('ModalOKCtrl',function($scope,$uibModalInstance,Globalvar,$http,$route){
+		$scope.m = Globalvar;
+		console.log($scope.m.itemno);
+		$scope.ok = function () {
+				$uibModalInstance.close();
+				$route.reload();
+				window.location.href="#/appointee";
+		};
+
+	});
