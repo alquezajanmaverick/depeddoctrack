@@ -61,6 +61,12 @@ app.config(function($routeProvider) {
 				templateUrl : 'redirect/edit-appointee.html',
 				controller  : 'editCtrl'
 			})
+
+			.otherwise(
+				{
+					redirectTo: 'redirect/404.html'
+				}
+			);
 	});
 
 	// create the controller and inject Angular's $scope
