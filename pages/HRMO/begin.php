@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
      <!-- Latest compiled and minified CSS -->
     <!--<link rel="stylesheet" href="../../libs/css/bootstrap.css">-->
-    <link rel="stylesheet" href="https://bootswatch.com/paper/bootstrap.css">
-
+    
+    <link rel="stylesheet" href="../../libs/css/bootstrap-paper.css">
     
     <?php echo customcss; ?>
     <?php echo angular; ?>
