@@ -240,6 +240,12 @@ app.config(function($routeProvider) {
 		//--reload
 		$scope.m = Globalvar;
 		$scope.message = $scope.m.message; 
+
+		 $http.get("get-position.php")
+		.then(function(response) {
+			$scope.pos = response.data;
+			console.log($scope.pos.position);
+		});
 		$http.post('get-single-appointee.php', {itemno:$scope.m.itemno}) .success(function(data){
 			$scope.appointee = data;
 			$scope.date = new Date(data.dateinformed);
@@ -252,6 +258,7 @@ app.config(function($routeProvider) {
 
 		$scope.ProcessForm = function(){
 			console.log($scope.xForm.position)
+			$scope.xForm.olditemno = $scope.m.itemno;
 			$http.post('edit-appointee.php', $scope.xForm) .success(function(data){
 				//$('#modal-container-505047').modal('show')
 				$scope.open();

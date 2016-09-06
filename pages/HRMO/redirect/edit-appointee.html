@@ -15,8 +15,13 @@
             </div>
             <div class="form-group">
                 <label for="pos" class="control-label">Vacant Position</label>
-                <select class="form-control" name="pos" ng-model="xForm.position" ng-value="position">
-                    <option ng-repeat="x in position" >{{x.position}}</option>
+                <select class="form-control" name="pos" ng-model="xForm.position" ng-init="xForm.position=position" >
+                    <div ng-if="pos.position === undefined">
+                        <option ng-value="xForm.position">{{xForm.position}}</option>
+                    </div>
+                    <div ng-if="pos.position != undefined">
+                        <option ng-repeat="x in pos">{{x.position}}</option>
+                    </div>
                 </select> 
             </div>
             <div class="form-group">

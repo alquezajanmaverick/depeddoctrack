@@ -4,25 +4,25 @@
   </div>
   <div class="panel-body">
       <div class="col-md-8 col-md-offset-2">
-        <form class="form-horizontal" ng-submit="ProcessForm()" role="form">
+        <form class="form-horizontal" novalidate name="userForm" ng-submit="ProcessForm()" role="form">
             <div class="form-group">
                 <label for="itemno" class="control-label">Item No.</label>
-                <input type="text" class="form-control" ng-model="xForm.itemno"/> 
+                <input type="text" class="form-control" ng-model="xForm.itemno" required> 
             </div>
             <div class="form-group">
                 <label for="name" class="control-label">Name</label>
-                <input type="text" name="name" class="form-control" ng-model="xForm.name"/> 
+                <input type="text" name="name" class="form-control" ng-model="xForm.name" required/> 
             </div>
             <div class="form-group">
                 <label for="pos" class="control-label">Vacant Position</label>
-                <select class="form-control" name="pos" ng-model="xForm.position">
+                <select class="form-control" name="pos" ng-model="xForm.position" required>
                     <option ng-repeat="x in pos" >{{x.position}}</option>
                 </select> 
             </div>
             <div class="form-group">
                 <label for="date" class="control-label">Date Informed</label>
                     <p class="input-group form-control">
-                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="xForm.dateinformed" is-open="popup2.opened" />
+                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="xForm.dateinformed" is-open="popup2.opened" required/>
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
@@ -31,14 +31,14 @@
             </div>
             <div class="form-group">
                 <label for="reply" class="control-label">Reply</label>
-                <select name="reply" class="form-control" ng-model="xForm.reply">
+                <select name="reply" class="form-control" ng-model="xForm.reply" required>
                     <option value="WAIVED">WAIVED</option>
                     <option value="CONFIRMED">CONFIRMED</option> 
                     <option value="CANNOT BE CONTACTED">CANNOT BE CONTACTED</option>
                 </select>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary glyphicon glyphicon-submit"> SUBMIT</button>
+                <button type="submit" class="btn btn-primary glyphicon glyphicon-submit" ng-disabled="userForm.$invalid"> SUBMIT</button>
                 <button type="button" onclick="window.location.assign('#appointee')" class="btn btn-danger glyphicon glyphicon-submit"> CANCEL</button> 
             </div>
 
