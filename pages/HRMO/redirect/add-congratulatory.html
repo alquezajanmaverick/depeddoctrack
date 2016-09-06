@@ -1,7 +1,7 @@
 
 <div class="panel panel-primary">
       <div class="panel-heading">
-            <h3 class="panel-title">Congratulatory Panel</h3>
+            <h3 class="panel-title">Congratulatory Panel for Item Number : <strong>{{m.itemno}}</strong></h3>
       </div>
       <div class="panel-body">
           
@@ -32,14 +32,11 @@
               <div class="form-group">
                   <label for="">Remarks:</label>
                   <div class="btn-group">
-                        <label class="btn btn-danger" ng-model="radioModel" uib-btn-radio="'Left'">Not Submitted</label>
-                        <label class="btn btn-warning" ng-model="radioModel" uib-btn-radio="'Middle'">Returned for Compliance</label>
-                        <label class="btn btn-success" ng-model="radioModel" uib-btn-radio="'Right'">Complete and Received</label>
+                        <label class="btn btn-danger" ng-model="radioModel" uib-btn-radio="'Not Submitted'">Not Submitted</label>
+                        <label class="btn btn-warning" ng-model="radioModel" uib-btn-radio="'Returned for Compliance'">Returned for Compliance</label>
+                        <label class="btn btn-success" ng-model="radioModel" uib-btn-radio="'Complete and Received'">Complete and Received</label>
                     </div>
               </div>
-              
-              
-              
               <button type="submit" class="btn btn-primary">Submit</button>
               <button type="button" class="btn btn-danger">Home</button>
           </form>

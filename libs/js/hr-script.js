@@ -183,7 +183,7 @@ app.config(function($routeProvider) {
 	});
 	//add appointee
 	app.controller('addCtrl', function($scope,Globalvar,$http,$route) {
-		
+		$scope.m = Globalvar;
 		//reload
 		var ctrl = this;
 		ctrl.reloadData = function(){
@@ -198,7 +198,7 @@ app.config(function($routeProvider) {
 		
 		});
 		$scope.ProcessForm = function(){
-			console.log($scope.xForm.position)
+			$scope.m.itemno = $scope.xForm.itemno;
 			$http.post('add-appointee.php', $scope.xForm) .success(function(data){
 				//$('#modal-container-505047').modal('show')
 				location.href = '#/add-congratulatory';
@@ -346,7 +346,8 @@ app.config(function($routeProvider) {
 		
 	})
 
-	app.controller('addcongratulatoryCtrl',function($scope,$http,$route){
+	app.controller('addcongratulatoryCtrl',function($scope,$http,$route,Globalvar){
+		$scope.m = Globalvar;
 		$scope.today = function() {
 		//$scope.xForm.dateinformed = new Date();
 		};
@@ -378,4 +379,6 @@ app.config(function($routeProvider) {
 		$scope.popup2 = {
 			opened: false
 		};
+
+		$scope.radioModel = "";
 	})

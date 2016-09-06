@@ -1,6 +1,7 @@
 
         
 <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+    <div class="container">
         <div class="navbar-header">
 
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -16,26 +17,6 @@
                 <li>
                     <a href="add-position.php">Add Position</a>
                 </li>
-                <!--
-                <li class="dropdown">
-                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Position<strong class="caret"></strong></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="add-position.php">Add New</a>
-                        </li>
-                        <li>
-                            <a href="edit-position.php">Update Existing</a>
-                        </li>
-                        <li>
-                            <a href="delete-position.php">Remove Exisiting</a>
-                        </li>
-                        <li class="divider">
-                        </li>
-                        <li>
-                            <a href="search-position.php">Search</a>
-                        </li>
-                    </ul>
-                </li>-->
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
@@ -44,7 +25,7 @@
                 
             </ul>
         </div>
-
+        </div>
     </nav>
     <br>
     <br>
