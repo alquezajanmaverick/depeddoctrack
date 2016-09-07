@@ -46,6 +46,12 @@ app.config(function($routeProvider) {
 				controller  : 'addcongratulatoryCtrl'
 			})
 
+			// route for the congratulatory page
+			.when('/edit-congratulatory', {
+				templateUrl : 'redirect/edit-congratulatory.html',
+				controller  : 'editcongratulatoryCtrl'
+			})
+
             // route for the process page
 			.when('/process', {
 				templateUrl : 'redirect/process.html',
@@ -202,7 +208,7 @@ app.config(function($routeProvider) {
 			$http.post('add-appointee.php', $scope.xForm) .success(function(data){
 				//$('#modal-container-505047').modal('show')
 				location.href = '#/add-congratulatory';
-				console.log();
+				//console.log();
 			});
 		}
 		$scope.today = function() {
@@ -271,7 +277,8 @@ app.config(function($routeProvider) {
 			$scope.xForm.olditemno = $scope.m.itemno;
 			$http.post('edit-appointee.php', $scope.xForm) .success(function(data){
 				//$('#modal-container-505047').modal('show')
-				$scope.open();
+				//$scope.open();
+				window.location.href = '#/edit-congratulatory';
 
 			});
 		}
@@ -347,13 +354,14 @@ app.config(function($routeProvider) {
 		
 	})
 
-	app.controller('addcongratulatoryCtrl',function($scope,$http,$route,Globalvar,uibDateParser,$filter){
+	app.controller('addcongratulatoryCtrl',function($scope,$http,$route,Globalvar,uibDateParser,$filter,$uibModal){
 		$scope.m = Globalvar;
+
 		$scope.xForm = {};
+		$scope.xForm.itemno = $scope.m.itemno
 		$scope.xForm.isReleased = false;
+		$scope.xForm.effectivity = "";
 		$scope.today = function() {
-			//$scope.xForm.datetoSDS = new Date();
-			//$scope.xForm.datesubmission = new Date();
 		};
 		$scope.today();
 
@@ -383,7 +391,7 @@ app.config(function($routeProvider) {
 		$scope.format = $scope.formats[0];
 		$scope.altInputFormats = ['yyy-MM-dd'];
 
-		$scope.open = function() {
+		$scope.open1 = function() {
 			$scope.popup.opened = true;
 			};
 
@@ -391,10 +399,23 @@ app.config(function($routeProvider) {
 				opened: false
 			};
 
-		$scope.radioModel = "";
+		$scope.radioModel = "Not Submitted";
 		
+		$scope.validateRelease = function(x){
+			if(x == true){
+				$scope.xForm.isReleased = "YES";
+			}
+			else
+			{
+				$scope.xForm.isReleased = "NO";
+			}
+		}
+
 		$scope.appendCongratulatory = function(){
-				
+				$scope.xForm.remarks = $scope.radioModel;
+
+				$scope.validateRelease($scope.xForm.isReleased);
+
 				if(angular.isUndefined($scope.xForm.datetoSDS))
 				{
 					$scope.xForm.datetoSDS = null;
@@ -403,13 +424,94 @@ app.config(function($routeProvider) {
 				{
 					$scope.xForm.datesubmission = null;
 				}
-
-			$http.post('add-congratulatory.php', $scope.xForm) .success(function(data){
-				//modal dialog popup
-			});
+				$http.post('add-congratulatory.php', $scope.xForm) .success(function(data){
+						$scope.open()
+				});
 		}
 			
-
+		$scope.open = function () {
+			 $uibModal.open({
+				animation: true,
+				ariaLabelledBy: 'modal-title',
+				ariaDescribedBy: 'modal-body',
+				templateUrl: 'myModalOK.html',
+				controller : 'ModalOKCtrl',
+				controllerAs: '$ctrl',
+				size: 'sm',
+				resolve: {
+				}
+				});
+		 }
 			
 
 	})
+
+	app.controller('editcongratulatoryCtrl',function($scope,$http,$route,Globalvar,$uibModal){
+			$scope.m = Globalvar;
+			$scope.xForm = {};
+			$scope.radioModel = "";
+
+			$http.post('get-congratulatory.php', {itemno:$scope.m.itemno}) .success(function(data){
+				if(data.isSDS == "YES"){data.isSDS=true;}else{data.isSDS=false}
+					$scope.xForm.isReleased = data.isSDS
+					console.log($scope.xForm.isReleased)
+					$scope.xForm.datetoSDS = new Date(data.hrmodate);
+					$scope.xForm.datesubmission = new Date(data.duedate);
+					
+					$scope.xForm.effectivity = data.effectivity;
+					$scope.xForm.remarks = data.remarks;
+					$scope.radioModel = $scope.xForm.remarks;
+				});
+			
+			$scope.updateCongratulatory = function(){
+					$scope.xForm.itemno = $scope.m.itemno;
+					if($scope.xForm.isReleased ==true){$scope.xForm.isReleased="YES"}else{$scope.xForm.isReleased="YES"}
+					$scope.xForm.remarks = $scope.radioModel;
+					$http.post('add-congratulatory.php', $scope.xForm) .success(function(data){
+							$scope.open()
+					});
+			}
+
+
+		// Disable weekend selection
+		function disabled(data) {
+			var date = data.date,
+			mode = data.mode;
+			return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+		}
+
+
+		$scope.open2 = function() {
+			$scope.popup2.opened = true;
+		};
+		$scope.open1 = function() {
+			$scope.popup.opened = true;
+		};
+
+
+		$scope.format = 'yyyy-MM-dd';
+		$scope.altInputFormats = ['yyyy-MM-dd'];
+
+		$scope.popup2 = {
+			opened: false
+			
+		};
+		$scope.popup = {
+			opened: false
+			
+		};
+		//modal
+		$scope.open = function () {
+			 $uibModal.open({
+				animation: true,
+				ariaLabelledBy: 'modal-title',
+				ariaDescribedBy: 'modal-body',
+				templateUrl: 'myModalOK.html',
+				controller : 'ModalOKCtrl',
+				controllerAs: '$ctrl',
+				size: 'sm',
+				resolve: {
+				}
+				});
+		 }
+	});
