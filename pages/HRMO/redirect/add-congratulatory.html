@@ -5,19 +5,29 @@
       </div>
       <div class="panel-body">
           
-          <form action="" method="POST" role="form">
+          <form ng-submit="appendCongratulatory()">
               <div class="form-group">
                   <div class="checkbox">
                       <label>
-                          <input type="checkbox" value="">
+                          <input type="checkbox" value="" ng-model="xForm.isReleased">
                           Congratulatory Released to SDS:
                       </label>
                   </div>
               </div>
               <div class="form-group">
+                  <label for="">Date of Released to SDS:</label>
+                  <p class="input-group form-control">
+                        <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" datepicker-options="datepicker" ng-model="xForm.datetoSDS" is-open="popup.opened" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+              </div>
+
+              <div class="form-group">
                   <label for="">Due Date of Submission:</label>
                   <p class="input-group form-control">
-                        <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" datepicker-options="datepicker" ng-model="xForm.dateinformed" ng-init="xForm.dateinformed|date:'yyyy-MM-dd'" is-open="popup2.opened" />
+                        <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" datepicker-options="datepicker" ng-model="xForm.datesubmission"  is-open="popup2.opened" />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
@@ -36,6 +46,9 @@
                         <label class="btn btn-warning" ng-model="radioModel" uib-btn-radio="'Returned for Compliance'">Returned for Compliance</label>
                         <label class="btn btn-success" ng-model="radioModel" uib-btn-radio="'Complete and Received'">Complete and Received</label>
                     </div>
+              </div>
+              <div ng-if="radioModel">
+                    <strong>You have seleced :</strong> "{{radioModel}}" as a remark.
               </div>
               <button type="submit" class="btn btn-primary">Submit</button>
               <button type="button" class="btn btn-danger">Home</button>

@@ -327,6 +327,7 @@ app.config(function($routeProvider) {
 
 	app.controller('ModalOKCtrl',function($scope,$uibModalInstance,Globalvar,$http,$route){
 		$scope.m = Globalvar;
+		
 		console.log($scope.m.itemno);
 		$scope.ok = function () {
 				$uibModalInstance.close();
@@ -346,10 +347,13 @@ app.config(function($routeProvider) {
 		
 	})
 
-	app.controller('addcongratulatoryCtrl',function($scope,$http,$route,Globalvar){
+	app.controller('addcongratulatoryCtrl',function($scope,$http,$route,Globalvar,uibDateParser,$filter){
 		$scope.m = Globalvar;
+		$scope.xForm = {};
+		$scope.xForm.isReleased = false;
 		$scope.today = function() {
-		//$scope.xForm.dateinformed = new Date();
+			//$scope.xForm.datetoSDS = new Date();
+			//$scope.xForm.datesubmission = new Date();
 		};
 		$scope.today();
 
@@ -371,14 +375,41 @@ app.config(function($routeProvider) {
 			$scope.popup2.opened = true;
 		};
 
+		$scope.popup2 = {
+			opened: false
+		};
 
 		$scope.formats = ['yyyy-MM-dd'];
 		$scope.format = $scope.formats[0];
 		$scope.altInputFormats = ['yyy-MM-dd'];
 
-		$scope.popup2 = {
-			opened: false
-		};
+		$scope.open = function() {
+			$scope.popup.opened = true;
+			};
+
+			$scope.popup = {
+				opened: false
+			};
 
 		$scope.radioModel = "";
+		
+		$scope.appendCongratulatory = function(){
+				
+				if(angular.isUndefined($scope.xForm.datetoSDS))
+				{
+					$scope.xForm.datetoSDS = null;
+				}
+				if(angular.isUndefined($scope.xForm.datesubmission))
+				{
+					$scope.xForm.datesubmission = null;
+				}
+
+			$http.post('add-congratulatory.php', $scope.xForm) .success(function(data){
+				//modal dialog popup
+			});
+		}
+			
+
+			
+
 	})
