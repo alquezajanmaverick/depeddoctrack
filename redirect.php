@@ -7,6 +7,9 @@ if(isset($_SESSION['user'])){
     elseif($_SESSION['user']=="HRMO"){
         header("Location:pages/HRMO/");
     }
+    elseif($_SESSION['user']=="SDS"){
+        header("Location:pages/SDS/");
+    }
 }
 else{
     header("Location:index.php");
