@@ -1,0 +1,19 @@
+<div class="modal-header">
+  {{title}}
+</div>
+<div class="modal-body">
+
+  <p class="input-group">
+    <input type="text" class="form-control" uib-datepicker-popup ng-model="dt" 
+    is-open="popup.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+    <span class="input-group-btn">
+      <button type="button" class="btn btn-default" ng-click="$event.preventDefault(); $event.stopPropagation();open();">
+        <i class="glyphicon glyphicon-calendar"></i>
+      </button>
+    </span>
+    
+  </p>
+  <button type="button" class="btn btn-primary glyphicon glyphicon-send" ng-click="go()"> SUBMIT</button>
+  &nbsp;
+  <button type="button" class="btn btn-danger glyphicon glyphicon-remove" ng-click="close()"> CANCEL</button>
+</div>

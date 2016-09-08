@@ -20,23 +20,32 @@
     </nav>
 
     
-    <div class="container">
+    <div class="container" >
         <center>
-                <table class="table table-hover" style="margin-top:150px;">
+               
+                <table class="table table-hover" style="margin-top:100px;" >
                 <thead class="bg-primary">
                     <tr>
                         <th><center>Item No.</center></th>
                         <th><center>Name</center></th>
-                        <th><center>Status</center></th>
-                        <th><center>Progress</center></th>
+                        <th><center>Due Date of Submission</center></th>
+                        <th><center>Action</center></th>
+                         <th><center>Released Date</center></th>
+                         
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="x in data">
                         <td><center>{{x.itemno}}</center></td>
                         <td><center>{{x.name}}</center></td>
-                        <td></td>
-                        <td></td>
+                        <td><center>{{x.duedate}}</center></td>
+                        <td><center>
+                            <div ng-if="x.ok">
+                                <button type="button" class="btn btn-xs btn-warning glyphicon glyphicon-ok-circle" ng-click="openModal(x.itemno)">CHECK</button>
+                            </div>
+                        </center>
+                        </td>
+                        <td><center>{{x.SDSreleaseddate}}</center></td>
                     </tr>
                 </tbody>
             </table>
@@ -46,6 +55,21 @@
 
 
 
-
+<script type="text/ng-template" id="myModalOK.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Good Job!</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <center><p class="input-group form-control">
+                        <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" datepicker-options="datepicker" ng-model="xForm.datesubmission"  is-open="popup.opened" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="openDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p><center>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        </div>
+</script>
 </div>
 <?php include("end.php"); ?>

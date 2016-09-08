@@ -3,7 +3,7 @@
 <html lang="en" ng-app="sdsApp" ng-controller="sdsCtrl">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="10"/>
+    <meta http-equiv="refresh" content="60"/>
     
     <title><?php echo title; ?></title>
     <?php // echo css; ?>
