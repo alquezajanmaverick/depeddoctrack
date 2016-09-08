@@ -10,14 +10,10 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dumping database structure for depeddoctracking
-CREATE DATABASE IF NOT EXISTS `depeddoctracking` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `depeddoctracking`;
-
-
 -- Dumping structure for procedure depeddoctracking.addappointee
+DROP PROCEDURE IF EXISTS `addappointee`;
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `addappointee`(IN `itemno` VARCHAR(50), IN `name` VARCHAR(50), IN `position` VARCHAR(50), IN `dateinformed` DATE, IN `reply` VARCHAR(50))
+CREATE  PROCEDURE `addappointee`(IN `itemno` VARCHAR(50), IN `name` VARCHAR(50), IN `position` VARCHAR(50), IN `dateinformed` DATE, IN `reply` VARCHAR(50))
 BEGIN
 INSERT INTO `tblappointee`(`itemno`, `name`, `position`, `dateinformed`, `reply`) VALUES (itemno,name,position,dateinformed,reply);
 INSERT INTO `tblcongratulatory`(`itemno`)VALUES(itemno);
@@ -28,8 +24,9 @@ DELIMITER ;
 
 
 -- Dumping structure for procedure depeddoctracking.AppointeeProgress
+DROP PROCEDURE IF EXISTS `AppointeeProgress`;
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `AppointeeProgress`()
+CREATE  PROCEDURE `AppointeeProgress`()
 BEGIN
 	SELECT *
 	FROM tblappointee as tbl1
@@ -46,8 +43,9 @@ DELIMITER ;
 
 
 -- Dumping structure for procedure depeddoctracking.deleteappointee
+DROP PROCEDURE IF EXISTS `deleteappointee`;
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteappointee`(IN `mykey` VARCHAR(50))
+CREATE  PROCEDURE `deleteappointee`(IN `mykey` VARCHAR(50))
 BEGIN
 	DELETE FROM `tblappointee` WHERE `itemno` = mykey limit 1;
 END//
@@ -55,8 +53,9 @@ DELIMITER ;
 
 
 -- Dumping structure for procedure depeddoctracking.editappointee
+DROP PROCEDURE IF EXISTS `editappointee`;
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `editappointee`(IN `itemkey` VARCHAR(50), IN `olditemkey` VARCHAR(50), IN `namekey` VARCHAR(50), IN `positionkey` VARCHAR(50), IN `datekey` VARCHAR(50), IN `replykey` VARCHAR(50))
+CREATE  PROCEDURE `editappointee`(IN `itemkey` VARCHAR(50), IN `olditemkey` VARCHAR(50), IN `namekey` VARCHAR(50), IN `positionkey` VARCHAR(50), IN `datekey` VARCHAR(50), IN `replykey` VARCHAR(50))
 BEGIN
 	UPDATE `tblappointee` SET `itemno`=itemkey,`name`=namekey,`position`=positionkey,`dateinformed`=datekey,`reply`=replykey WHERE `itemno` = olditemkey ;
 END//
@@ -64,8 +63,9 @@ DELIMITER ;
 
 
 -- Dumping structure for procedure depeddoctracking.fetchappointee
+DROP PROCEDURE IF EXISTS `fetchappointee`;
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `fetchappointee`()
+CREATE  PROCEDURE `fetchappointee`()
     COMMENT 'fetch all tblappointee data'
 BEGIN
 	SELECT * from tblappointee;
@@ -73,9 +73,37 @@ END//
 DELIMITER ;
 
 
--- Dumping structure for procedure depeddoctracking.fetchpositions
+-- Dumping structure for procedure depeddoctracking.fetchcongratulatory
+DROP PROCEDURE IF EXISTS `fetchcongratulatory`;
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `fetchpositions`()
+CREATE  PROCEDURE `fetchcongratulatory`(IN `xitem` VARCHAR(50))
+BEGIN
+	SELECT * from tblcongratulatory as c
+	LEFT JOIN tblremarks as r
+	on
+	c.itemno = r.itemno
+	WHERE c.itemno = xitem;
+END//
+DELIMITER ;
+
+
+-- Dumping structure for procedure depeddoctracking.fetchforSDS
+DROP PROCEDURE IF EXISTS `fetchforSDS`;
+DELIMITER //
+CREATE  PROCEDURE `fetchforSDS`()
+BEGIN
+	SELECT * from tblcongratulatory as c
+	LEFT JOIN tblappointee as a
+	on c.itemno = a.itemno
+	where c.isSDS = 'YES' AND c.ok != NULL;
+END//
+DELIMITER ;
+
+
+-- Dumping structure for procedure depeddoctracking.fetchpositions
+DROP PROCEDURE IF EXISTS `fetchpositions`;
+DELIMITER //
+CREATE  PROCEDURE `fetchpositions`()
     COMMENT 'fetch all tblposition data'
 BEGIN
 	SELECT * from tblpositions;
@@ -84,15 +112,27 @@ DELIMITER ;
 
 
 -- Dumping structure for procedure depeddoctracking.fetchsingleappointee
+DROP PROCEDURE IF EXISTS `fetchsingleappointee`;
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `fetchsingleappointee`(IN `myKey` VARCHAR(50))
+CREATE  PROCEDURE `fetchsingleappointee`(IN `myKey` VARCHAR(50))
 BEGIN
 	SELECT * from tblappointee where `itemno` = mykey limit 1;
 END//
 DELIMITER ;
 
 
+-- Dumping structure for procedure depeddoctracking.marksds
+DROP PROCEDURE IF EXISTS `marksds`;
+DELIMITER //
+CREATE  PROCEDURE `marksds`(IN `ddate` DATE, IN `item` VARCHAR(50))
+BEGIN
+	UPDATE `tblcongratulatory` SET `SDSreleaseddate`=ddate,`ok`='YES' WHERE `itemno` = item limit 1;
+END//
+DELIMITER ;
+
+
 -- Dumping structure for table depeddoctracking.tblappointee
+DROP TABLE IF EXISTS `tblappointee`;
 CREATE TABLE IF NOT EXISTS `tblappointee` (
   `itemno` varchar(50) NOT NULL,
   `name` varchar(100) DEFAULT NULL,
@@ -103,22 +143,16 @@ CREATE TABLE IF NOT EXISTS `tblappointee` (
   KEY `position` (`position`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table depeddoctracking.tblappointee: ~8 rows (approximately)
+-- Dumping data for table depeddoctracking.tblappointee: ~1 rows (approximately)
 DELETE FROM `tblappointee`;
 /*!40000 ALTER TABLE `tblappointee` DISABLE KEYS */;
 INSERT INTO `tblappointee` (`itemno`, `name`, `position`, `dateinformed`, `reply`) VALUES
-	('11', '2131231', 'sadsa', '2016-09-16', 'WAIVED'),
-	('1111', 'aAAaa', 'aaa', '2016-09-06', 'CONFIRMED'),
-	('1112', 'test', 'Pricipal 2', '2016-09-06', 'CONFIRMED'),
-	('1123', 'asd', 'asd', '2016-09-06', 'asd'),
-	('123', '111', 'asdasd', '2016-09-30', 'WAIVED'),
-	('222', 'mavs', 'dasd', '2016-09-30', 'CONFIRMED'),
-	('3444', 'asdasda', 'as', '2016-09-17', 'WAIVED'),
-	('as', 'asd', 'asd', '2016-09-06', 'WAIVED');
+	('222', 'asd', 'asd', '2016-09-23', 'WAIVED');
 /*!40000 ALTER TABLE `tblappointee` ENABLE KEYS */;
 
 
 -- Dumping structure for table depeddoctracking.tblappointeeprogress
+DROP TABLE IF EXISTS `tblappointeeprogress`;
 CREATE TABLE IF NOT EXISTS `tblappointeeprogress` (
   `itemno` varchar(50) DEFAULT NULL,
   `name` varchar(50) DEFAULT '0',
@@ -127,55 +161,37 @@ CREATE TABLE IF NOT EXISTS `tblappointeeprogress` (
   CONSTRAINT `itemprogress` FOREIGN KEY (`itemno`) REFERENCES `tblappointee` (`itemno`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='progressbar on front end';
 
--- Dumping data for table depeddoctracking.tblappointeeprogress: ~8 rows (approximately)
+-- Dumping data for table depeddoctracking.tblappointeeprogress: ~1 rows (approximately)
 DELETE FROM `tblappointeeprogress`;
 /*!40000 ALTER TABLE `tblappointeeprogress` DISABLE KEYS */;
 INSERT INTO `tblappointeeprogress` (`itemno`, `name`, `progress`) VALUES
-	('1123', 'asd', 0),
-	('1111', 'aAAaa', 0),
-	('11', '2131231', 0),
-	('3444', 'asdasda', 0),
-	('123', '111', 0),
-	('222', 'mavs', 0),
-	('as', 'asd', 0),
-	('1112', 'test', 0);
+	('222', 'asd', 0);
 /*!40000 ALTER TABLE `tblappointeeprogress` ENABLE KEYS */;
 
 
 -- Dumping structure for table depeddoctracking.tblcongratulatory
+DROP TABLE IF EXISTS `tblcongratulatory`;
 CREATE TABLE IF NOT EXISTS `tblcongratulatory` (
   `itemno` varchar(50) NOT NULL,
   `hrmodate` date DEFAULT NULL,
   `isSDS` varchar(5) NOT NULL DEFAULT 'NO',
-  `SDSdate` date DEFAULT NULL,
   `duedate` date DEFAULT NULL,
+  `SDSreleaseddate` date DEFAULT NULL,
+  `ok` char(50) DEFAULT NULL,
   KEY `itemno` (`itemno`),
   CONSTRAINT `itemno` FOREIGN KEY (`itemno`) REFERENCES `tblappointee` (`itemno`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table depeddoctracking.tblcongratulatory: ~15 rows (approximately)
+-- Dumping data for table depeddoctracking.tblcongratulatory: ~1 rows (approximately)
 DELETE FROM `tblcongratulatory`;
 /*!40000 ALTER TABLE `tblcongratulatory` DISABLE KEYS */;
-INSERT INTO `tblcongratulatory` (`itemno`, `hrmodate`, `isSDS`, `SDSdate`, `duedate`) VALUES
-	('1123', NULL, 'NO', NULL, NULL),
-	('1111', NULL, 'NO', NULL, NULL),
-	('1111', NULL, 'NO', NULL, NULL),
-	('11', NULL, 'NO', NULL, NULL),
-	('11', NULL, 'NO', NULL, NULL),
-	('3444', NULL, 'NO', NULL, NULL),
-	('3444', NULL, 'NO', NULL, NULL),
-	('123', NULL, 'NO', NULL, NULL),
-	('123', NULL, 'NO', NULL, NULL),
-	('222', NULL, 'NO', NULL, NULL),
-	('222', NULL, 'NO', NULL, NULL),
-	('as', NULL, 'NO', NULL, NULL),
-	('as', NULL, 'NO', NULL, NULL),
-	('1112', NULL, 'NO', NULL, NULL),
-	('1112', NULL, 'NO', NULL, NULL);
+INSERT INTO `tblcongratulatory` (`itemno`, `hrmodate`, `isSDS`, `duedate`, `SDSreleaseddate`, `ok`) VALUES
+	('222', '2016-09-23', 'YES', '2016-09-20', '2016-09-24', 'YES');
 /*!40000 ALTER TABLE `tblcongratulatory` ENABLE KEYS */;
 
 
 -- Dumping structure for table depeddoctracking.tblpositions
+DROP TABLE IF EXISTS `tblpositions`;
 CREATE TABLE IF NOT EXISTS `tblpositions` (
   `itemno` varchar(150) NOT NULL,
   `position` varchar(50) NOT NULL,
@@ -194,6 +210,7 @@ DELETE FROM `tblpositions`;
 
 
 -- Dumping structure for table depeddoctracking.tblprocess
+DROP TABLE IF EXISTS `tblprocess`;
 CREATE TABLE IF NOT EXISTS `tblprocess` (
   `itemno` varchar(50) DEFAULT NULL,
   `isHRMO` varchar(5) DEFAULT 'NO',
@@ -214,78 +231,67 @@ CREATE TABLE IF NOT EXISTS `tblprocess` (
   CONSTRAINT `itemno1` FOREIGN KEY (`itemno`) REFERENCES `tblappointee` (`itemno`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table depeddoctracking.tblprocess: ~15 rows (approximately)
+-- Dumping data for table depeddoctracking.tblprocess: ~2 rows (approximately)
 DELETE FROM `tblprocess`;
 /*!40000 ALTER TABLE `tblprocess` DISABLE KEYS */;
 INSERT INTO `tblprocess` (`itemno`, `isHRMO`, `hrmodate`, `isBO`, `bodatereceived`, `bodatereleased`, `isSGOD`, `sgoddatereceived`, `sgoddatereleased`, `isASDS`, `asdsdatereceived`, `asdsdatereleased`, `isSDS`, `sdsdatereceived`, `sdsdatereleased`) VALUES
-	('1123', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL),
-	('1111', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL),
-	('1111', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL),
-	('11', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL),
-	('11', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL),
-	('3444', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL),
-	('3444', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL),
-	('123', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL),
-	('123', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL),
 	('222', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL),
-	('222', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL),
-	('as', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL),
-	('as', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL),
-	('1112', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL),
-	('1112', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL);
+	('222', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL);
 /*!40000 ALTER TABLE `tblprocess` ENABLE KEYS */;
 
 
 -- Dumping structure for table depeddoctracking.tblremarks
+DROP TABLE IF EXISTS `tblremarks`;
 CREATE TABLE IF NOT EXISTS `tblremarks` (
   `itemno` varchar(50) NOT NULL,
-  `effectivity` varchar(50) DEFAULT NULL,
+  `effectivity` text,
   `remarks` varchar(50) DEFAULT NULL,
   KEY `itemno2` (`itemno`),
   CONSTRAINT `itemno2` FOREIGN KEY (`itemno`) REFERENCES `tblappointee` (`itemno`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table depeddoctracking.tblremarks: ~15 rows (approximately)
+-- Dumping data for table depeddoctracking.tblremarks: ~2 rows (approximately)
 DELETE FROM `tblremarks`;
 /*!40000 ALTER TABLE `tblremarks` DISABLE KEYS */;
 INSERT INTO `tblremarks` (`itemno`, `effectivity`, `remarks`) VALUES
-	('1123', NULL, NULL),
-	('1111', NULL, NULL),
-	('1111', NULL, NULL),
-	('11', NULL, NULL),
-	('11', NULL, NULL),
-	('3444', NULL, NULL),
-	('3444', NULL, NULL),
-	('123', NULL, NULL),
-	('123', NULL, NULL),
-	('222', NULL, NULL),
-	('222', NULL, NULL),
-	('as', NULL, NULL),
-	('as', NULL, NULL),
-	('1112', NULL, NULL),
-	('1112', NULL, NULL);
+	('222', 'asdasd111', 'Complete and Received'),
+	('222', NULL, NULL);
 /*!40000 ALTER TABLE `tblremarks` ENABLE KEYS */;
 
 
 -- Dumping structure for table depeddoctracking.tblusers
+DROP TABLE IF EXISTS `tblusers`;
 CREATE TABLE IF NOT EXISTS `tblusers` (
   `userID` int(11) NOT NULL AUTO_INCREMENT,
   `UserName` varchar(150) NOT NULL,
   `Password` varchar(150) NOT NULL,
   `Privilege` varchar(50) NOT NULL DEFAULT '0',
   PRIMARY KEY (`userID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table depeddoctracking.tblusers: ~2 rows (approximately)
 DELETE FROM `tblusers`;
 /*!40000 ALTER TABLE `tblusers` DISABLE KEYS */;
 INSERT INTO `tblusers` (`userID`, `UserName`, `Password`, `Privilege`) VALUES
 	(1, 'HRMO', 'hrmo', 'HRMO'),
-	(2, 'SGOD', 'sgod', 'SGOD');
+	(2, 'SGOD', 'sgod', 'SGOD'),
+	(3, 'SDS', 'sds', 'SDS');
 /*!40000 ALTER TABLE `tblusers` ENABLE KEYS */;
 
 
+-- Dumping structure for procedure depeddoctracking.updateCongratulatory
+DROP PROCEDURE IF EXISTS `updateCongratulatory`;
+DELIMITER //
+CREATE  PROCEDURE `updateCongratulatory`(IN `datereleased` DATE, IN `releasedtoSDS` CHAR(50), IN `xduedate` DATE, IN `xitem` VARCHAR(50), IN `effectivity` TEXT, IN `remarks` CHAR(50))
+BEGIN
+	UPDATE `tblcongratulatory` SET `hrmodate`=datereleased,`isSDS`=releasedtoSDS,`duedate`=xduedate WHERE `itemno`=xitem limit 1;
+	UPDATE `tblremarks` SET `effectivity`=effectivity,`remarks`= remarks WHERE `itemno`=xitem limit 1;
+END//
+DELIMITER ;
+
+
 -- Dumping structure for trigger depeddoctracking.fillposition
+DROP TRIGGER IF EXISTS `fillposition`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER';
 DELIMITER //
 CREATE TRIGGER `fillposition` AFTER INSERT ON `tblappointee` FOR EACH ROW BEGIN
