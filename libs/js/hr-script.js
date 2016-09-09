@@ -1,3 +1,4 @@
+
 var app = angular.module('mainApp',['ngRoute','ngAnimate','angular.filter','ui.bootstrap','angularUtils.directives.dirPagination']);
 app.factory("Globalvar",function(){
         return {};
@@ -95,6 +96,14 @@ app.config(function($routeProvider) {
 				$scope.m.hasVacant = true;
 			}
         });
+		
+		$scope.appointNow = function(x,y)
+		{
+			$scope.m.itemno = x;
+			$scope.m.pos = y;
+			window.location.href = "#add-appointee";
+			console.log(x);
+		}
 	});
 
 	app.controller('appointeeCtrl', function($scope,Globalvar,$route,$http,$uibModal) {
@@ -131,8 +140,9 @@ app.config(function($routeProvider) {
 				});
 		 }
 		
-		 $scope.openEdit = function(x){
+		 $scope.openEdit = function(x,y){
 			 $scope.m.itemno = x;
+			 $scope.m.pos = y;
 			 location.href = '#edit-appointee';
 		 }
 
@@ -210,7 +220,15 @@ app.config(function($routeProvider) {
 				location.href = '#/add-congratulatory';
 				//console.log();
 			});
-		}
+		};
+		
+		$scope.updateItemNo =function(x){
+			$http.post('assign-itemno.php', {item : x}) .success(function(data){
+				$scope.xForm.itemno = data.itemno;
+				console.log($scope.xForm.itemno);
+			});
+		};
+		
 		$scope.today = function() {
 		$scope.xForm.dateinformed = new Date();
 		};
@@ -358,7 +376,7 @@ app.config(function($routeProvider) {
 		$scope.m = Globalvar;
 
 		$scope.xForm = {};
-		$scope.xForm.itemno = $scope.m.itemno
+		$scope.xForm.itemno = $scope.m.itemno;
 		$scope.xForm.isReleased = false;
 		$scope.xForm.effectivity = "";
 		$scope.today = function() {

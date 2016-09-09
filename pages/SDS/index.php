@@ -13,7 +13,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
             <li>
-                <a href="#">Sign-out</a>
+                <a href="../../log-out.php">Sign-out</a>
             </li>
             </ul>
         </div>
@@ -30,7 +30,6 @@
                         <th><center>Name</center></th>
                         <th><center>Due Date of Submission</center></th>
                         <th><center>Action</center></th>
-                         <th><center>Released Date</center></th>
                          
                     </tr>
                 </thead>
@@ -40,12 +39,11 @@
                         <td><center>{{x.name}}</center></td>
                         <td><center>{{x.duedate}}</center></td>
                         <td><center>
-                            <div ng-if="x.ok">
-                                <button type="button" class="btn btn-xs btn-warning glyphicon glyphicon-ok-circle" ng-click="openModal(x.itemno)">CHECK</button>
+                            <div ng-show="x.ok">
+                                <button type="button" class="btn btn-xs btn-success glyphicon glyphicon-ok-circle" ng-click="openModal(x.itemno,x.name)"> Approve</button>
                             </div>
                         </center>
                         </td>
-                        <td><center>{{x.SDSreleaseddate}}</center></td>
                     </tr>
                 </tbody>
             </table>

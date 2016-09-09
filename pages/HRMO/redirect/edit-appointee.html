@@ -7,23 +7,20 @@
         <form class="form-horizontal" ng-submit="ProcessForm()" role="form">
             <div class="form-group">
                 <label for="itemno" class="control-label">Item No.</label>
-                <input type="text" class="form-control" ng-model="xForm.itemno"/> 
+                <input type="text" class="form-control" ng-model="xForm.itemno" ng-init="xForm.itemno = m.itemno" readonly/> 
             </div>
+            
+            <div class="form-group">
+                <label for="pos" class="control-label">Position</label>
+                <input type="text" class="form-control" ng-model="xForm.position" ng-init="xForm.itemno = m.pos" readonly/> 
+                 
+            </div>
+            
             <div class="form-group">
                 <label for="name" class="control-label">Name</label>
                 <input type="text" name="name" class="form-control" ng-model="xForm.name"/> 
             </div>
-            <div class="form-group">
-                <label for="pos" class="control-label">Vacant Position</label>
-                <select class="form-control" name="pos" ng-model="xForm.position" ng-init="xForm.position=position" >
-                    <div ng-if="pos.position === undefined">
-                        <option ng-value="xForm.position">{{xForm.position}}</option>
-                    </div>
-                    <div ng-if="pos.position != undefined">
-                        <option ng-repeat="x in pos">{{x.position}}</option>
-                    </div>
-                </select> 
-            </div>
+            
             <div class="form-group">
                 <label for="date" class="control-label">Date Informed</label>
                     <p class="input-group form-control">

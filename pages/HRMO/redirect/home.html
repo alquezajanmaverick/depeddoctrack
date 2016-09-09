@@ -1,6 +1,6 @@
 
 <div class="page-header">
-  <h1><center><small>List of Vacant Position/s:</small></center></h1>
+  <h1><center><small>List of Vacant Position</small></center></h1>
 </div>
 <input type="text" ng-model="hunt" placeholder="Search here ..."/>
 <table class="table table-hover centered">
@@ -13,6 +13,7 @@
             <td><center>District</center></td>
             <td><center>School Name</center></td>
             <td><center>School ID</center></td>
+            <td><center>Appointee</center></td>
         </tr>
     </thead>
     <tbody>
@@ -24,6 +25,7 @@
             <td><center>{{x.district}}</center></td>
             <td><center>{{x.schoolname}}</center></td>
             <td><center>{{x.schoolid}}</center></td>
+            <td><center><button ng-click="appointNow(x.itemno,x.position)" class="btn btn-warning btn-sm glyphicon glyphicon-plus"> Assign</button></center></td>
         </tr>
     </tbody>
 </table>

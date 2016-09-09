@@ -7,18 +7,19 @@
         <form class="form-horizontal" novalidate name="userForm" ng-submit="ProcessForm()" role="form">
             <div class="form-group">
                 <label for="itemno" class="control-label">Item No.</label>
-                <input type="text" class="form-control" ng-model="xForm.itemno" required> 
+                <input type="text" class="form-control" ng-model="xForm.itemno" ng-init="xForm.itemno = m.itemno" readonly required> 
             </div>
+            
+            <div class="form-group">
+                <label for="pos" class="control-label">Position</label>
+                <input type="text" class="form-control" ng-model="xForm.position" ng-init="xForm.position = m.pos" readonly required/>
+            </div>
+            
             <div class="form-group">
                 <label for="name" class="control-label">Name</label>
                 <input type="text" name="name" class="form-control" ng-model="xForm.name" required/> 
             </div>
-            <div class="form-group">
-                <label for="pos" class="control-label">Vacant Position</label>
-                <select class="form-control" name="pos" ng-model="xForm.position" required>
-                    <option ng-repeat="x in pos" >{{x.position}}</option>
-                </select> 
-            </div>
+            
             <div class="form-group">
                 <label for="date" class="control-label">Date Informed</label>
                     <p class="input-group form-control">
