@@ -133,14 +133,11 @@ CREATE TABLE IF NOT EXISTS `tblappointee` (
   KEY `position` (`position`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table depeddoctracking.tblappointee: ~4 rows (approximately)
+-- Dumping data for table depeddoctracking.tblappointee: ~2 rows (approximately)
 DELETE FROM `tblappointee`;
 /*!40000 ALTER TABLE `tblappointee` DISABLE KEYS */;
 INSERT INTO `tblappointee` (`itemno`, `name`, `position`, `dateinformed`, `reply`) VALUES
-	('111', 'Jose', 'asd', '2016-09-28', 'CONFIRMED'),
-	('112', 'asd', 'asds', '2016-09-30', 'CONFIRMED'),
-	('1123', 'TEST', 'Principal 1', '2016-09-30', 'CONFIRMED'),
-	('222', 'asd', 'asd', '2016-09-23', 'WAIVED');
+	('DECS-111-asdf', 'Jose Rizal', 'Principal 1', '2016-09-08', 'CONFIRMED');
 /*!40000 ALTER TABLE `tblappointee` ENABLE KEYS */;
 
 
@@ -149,18 +146,15 @@ CREATE TABLE IF NOT EXISTS `tblappointeeprogress` (
   `itemno` varchar(50) DEFAULT NULL,
   `name` varchar(50) DEFAULT '0',
   `progress` tinyint(4) DEFAULT '0',
-  KEY `itemno` (`itemno`),
+  UNIQUE KEY `itemno` (`itemno`),
   CONSTRAINT `itemprogress` FOREIGN KEY (`itemno`) REFERENCES `tblappointee` (`itemno`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='progressbar on front end';
 
--- Dumping data for table depeddoctracking.tblappointeeprogress: ~4 rows (approximately)
+-- Dumping data for table depeddoctracking.tblappointeeprogress: ~2 rows (approximately)
 DELETE FROM `tblappointeeprogress`;
 /*!40000 ALTER TABLE `tblappointeeprogress` DISABLE KEYS */;
 INSERT INTO `tblappointeeprogress` (`itemno`, `name`, `progress`) VALUES
-	('222', 'asd', 0),
-	('111', 'Jose', 0),
-	('112', 'asd', 0),
-	('1123', 'TEST', 0);
+	('DECS-111-asdf', 'Jose Rizal', 0);
 /*!40000 ALTER TABLE `tblappointeeprogress` ENABLE KEYS */;
 
 
@@ -176,14 +170,11 @@ CREATE TABLE IF NOT EXISTS `tblcongratulatory` (
   CONSTRAINT `itemno` FOREIGN KEY (`itemno`) REFERENCES `tblappointee` (`itemno`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table depeddoctracking.tblcongratulatory: ~4 rows (approximately)
+-- Dumping data for table depeddoctracking.tblcongratulatory: ~2 rows (approximately)
 DELETE FROM `tblcongratulatory`;
 /*!40000 ALTER TABLE `tblcongratulatory` DISABLE KEYS */;
 INSERT INTO `tblcongratulatory` (`itemno`, `hrmodate`, `isSDS`, `duedate`, `SDSreleaseddate`, `ok`) VALUES
-	('111', '2016-09-12', 'YES', '2016-09-20', '2016-09-28', 'YES'),
-	('112', NULL, 'NO', NULL, NULL, 'NO'),
-	('1123', '2016-09-21', 'YES', '2016-09-13', '2016-09-09', 'YES'),
-	('222', '2016-09-23', 'YES', '2016-09-20', '2016-09-24', 'YES');
+	('DECS-111-asdf', '2016-09-07', 'YES', '2016-09-09', '2016-09-10', 'YES');
 /*!40000 ALTER TABLE `tblcongratulatory` ENABLE KEYS */;
 
 
@@ -199,9 +190,11 @@ CREATE TABLE IF NOT EXISTS `tblpositions` (
   PRIMARY KEY (`itemno`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- Dumping data for table depeddoctracking.tblpositions: 0 rows
+-- Dumping data for table depeddoctracking.tblpositions: 1 rows
 DELETE FROM `tblpositions`;
 /*!40000 ALTER TABLE `tblpositions` DISABLE KEYS */;
+INSERT INTO `tblpositions` (`itemno`, `position`, `positioncategory`, `schoollevel`, `district`, `schoolid`, `schoolname`) VALUES
+	('123123', 'a', 'Promotion', 'Elementary', 'Sta. Cruz North', '106981', 'Guinabon ES');
 /*!40000 ALTER TABLE `tblpositions` ENABLE KEYS */;
 
 
@@ -222,21 +215,15 @@ CREATE TABLE IF NOT EXISTS `tblprocess` (
   `isSDS` varchar(5) NOT NULL DEFAULT 'NO',
   `sdsdatereceived` date DEFAULT NULL,
   `sdsdatereleased` date DEFAULT NULL,
-  KEY `itemno1` (`itemno`),
+  UNIQUE KEY `itemno` (`itemno`),
   CONSTRAINT `itemno1` FOREIGN KEY (`itemno`) REFERENCES `tblappointee` (`itemno`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table depeddoctracking.tblprocess: ~7 rows (approximately)
+-- Dumping data for table depeddoctracking.tblprocess: ~2 rows (approximately)
 DELETE FROM `tblprocess`;
 /*!40000 ALTER TABLE `tblprocess` DISABLE KEYS */;
 INSERT INTO `tblprocess` (`itemno`, `isHRMO`, `hrmodate`, `isBO`, `bodatereceived`, `bodatereleased`, `isSGOD`, `sgoddatereceived`, `sgoddatereleased`, `isASDS`, `asdsdatereceived`, `asdsdatereleased`, `isSDS`, `sdsdatereceived`, `sdsdatereleased`) VALUES
-	('222', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL),
-	('222', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL),
-	('111', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL),
-	('111', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL),
-	('112', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL),
-	('112', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL),
-	('1123', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL);
+	('DECS-111-asdf', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL);
 /*!40000 ALTER TABLE `tblprocess` ENABLE KEYS */;
 
 
@@ -245,21 +232,15 @@ CREATE TABLE IF NOT EXISTS `tblremarks` (
   `itemno` varchar(50) NOT NULL,
   `effectivity` text,
   `remarks` varchar(50) DEFAULT NULL,
-  KEY `itemno2` (`itemno`),
+  UNIQUE KEY `itemno` (`itemno`),
   CONSTRAINT `itemno2` FOREIGN KEY (`itemno`) REFERENCES `tblappointee` (`itemno`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table depeddoctracking.tblremarks: ~7 rows (approximately)
+-- Dumping data for table depeddoctracking.tblremarks: ~2 rows (approximately)
 DELETE FROM `tblremarks`;
 /*!40000 ALTER TABLE `tblremarks` DISABLE KEYS */;
 INSERT INTO `tblremarks` (`itemno`, `effectivity`, `remarks`) VALUES
-	('222', 'asdasd111', 'Complete and Received'),
-	('222', NULL, NULL),
-	('111', 'asd', 'Returned for Compliance'),
-	('111', NULL, NULL),
-	('112', NULL, NULL),
-	('112', NULL, NULL),
-	('1123', 'asd', 'Returned for Compliance');
+	('DECS-111-asdf', 'Test', 'Complete and Received');
 /*!40000 ALTER TABLE `tblremarks` ENABLE KEYS */;
 
 
