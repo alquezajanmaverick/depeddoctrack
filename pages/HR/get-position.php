@@ -1,5 +1,5 @@
 <?php 
-include("../../connection/PHPpdo.php");
+include("../../connection/db.inc.php");
 $db = new DatabaseConnect();
 
 $postdata = file_get_contents("php://input");

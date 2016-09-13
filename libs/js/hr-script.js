@@ -1,5 +1,5 @@
 
-var app = angular.module('mainApp',['ngRoute','ngAnimate','angular.filter','ui.bootstrap','angularUtils.directives.dirPagination']);
+var app = angular.module('mainApp',['ngRoute','ngAnimate','angular.filter','ui.bootstrap']);
 app.factory("Globalvar",function(){
         return {};
 });
@@ -464,72 +464,4 @@ app.config(function($routeProvider) {
 
 	})
 
-	app.controller('editcongratulatoryCtrl',function($scope,$http,$route,Globalvar,$uibModal){
-			$scope.m = Globalvar;
-			$scope.xForm = {};
-			$scope.radioModel = "";
-
-			$http.post('get-congratulatory.php', {itemno:$scope.m.itemno}) .success(function(data){
-				if(data.isSDS == "YES"){data.isSDS=true;}else{data.isSDS=false}
-					$scope.xForm.isReleased = data.isSDS
-					console.log($scope.xForm.isReleased)
-					$scope.xForm.datetoSDS = new Date(data.hrmodate);
-					$scope.xForm.datesubmission = new Date(data.duedate);
-					
-					$scope.xForm.effectivity = data.effectivity;
-					$scope.xForm.remarks = data.remarks;
-					$scope.radioModel = $scope.xForm.remarks;
-				});
-			
-			$scope.updateCongratulatory = function(){
-					$scope.xForm.itemno = $scope.m.itemno;
-					if($scope.xForm.isReleased ==true){$scope.xForm.isReleased="YES"}else{$scope.xForm.isReleased="YES"}
-					$scope.xForm.remarks = $scope.radioModel;
-					$http.post('add-congratulatory.php', $scope.xForm) .success(function(data){
-							$scope.open()
-					});
-			}
-
-
-		// Disable weekend selection
-		function disabled(data) {
-			var date = data.date,
-			mode = data.mode;
-			return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
-		}
-
-
-		$scope.open2 = function() {
-			$scope.popup2.opened = true;
-		};
-		$scope.open1 = function() {
-			$scope.popup.opened = true;
-		};
-
-
-		$scope.format = 'yyyy-MM-dd';
-		$scope.altInputFormats = ['yyyy-MM-dd'];
-
-		$scope.popup2 = {
-			opened: false
-			
-		};
-		$scope.popup = {
-			opened: false
-			
-		};
-		//modal
-		$scope.open = function () {
-			 $uibModal.open({
-				animation: true,
-				ariaLabelledBy: 'modal-title',
-				ariaDescribedBy: 'modal-body',
-				templateUrl: 'myModalOK.html',
-				controller : 'ModalOKCtrl',
-				controllerAs: '$ctrl',
-				size: 'sm',
-				resolve: {
-				}
-				});
-		 }
-	});
+	

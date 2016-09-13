@@ -27,7 +27,7 @@
                                                 Item Number:
                                             </label>
                                             <div class="col-md-10">
-                                                <input type="text" ng-model="xForm.itemno" name="itemno" class="form-control" id="itemno" />
+                                                <input type="text" ng-model="xForm.itemno" name="itemno" class="form-control" id="itemno" required/>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -35,7 +35,7 @@
                                                 Position
                                             </label>
                                             <div class="col-md-10">
-                                                <input type="text" ng-model="xForm.position" name="pos" class="form-control" id="itemno" />
+                                                <input type="text" ng-model="xForm.position" name="pos" class="form-control" id="itemno" required />
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -43,7 +43,7 @@
                                                 Position Category
                                             </label>
                                             <div class="col-md-10">
-                                            <select class="form-control" name="cat" ng-model="xForm.category">
+                                            <select class="form-control" name="cat" ng-model="xForm.category" required>
                                                     <option value="New">New</option>
                                                     <option value="Promotion">Promotion</option>
                                                     <option value="Substitute">Substitute</option>
@@ -56,7 +56,7 @@
                                                 School Level
                                             </label>
                                             <div class="col-md-10">
-                                                <select class="form-control" ng-model="xForm.level">
+                                                <select class="form-control" ng-model="xForm.level" required>
                                                     <option ng-repeat="x in school | unique:'Level'">{{x.Level}}</option>
                                                 </select>
                                             </div>
@@ -66,7 +66,7 @@
                                                 District
                                             </label>
                                             <div class="col-md-10">
-                                                <select class="form-control" name="dist" ng-model="xForm.district">
+                                                <select class="form-control" name="dist" ng-model="xForm.district" required>
                                                     <option ng-repeat="x in school | filterBy:['Level']:xForm:level | unique:'District'">{{x.District}}</option>
                                                 </select>
                                             </div>
@@ -76,7 +76,7 @@
                                                 School Name
                                             </label>
                                             <div class="col-md-10">
-                                                <select class="form-control" name="sch" ng-model="xForm.school">
+                                                <select class="form-control" name="sch" ng-model="xForm.school" required>
                                                     <option ng-repeat="x in school | filterBy:['Level']:xForm.level | filterBy:['District']:xForm.district | unique:'School'">{{x.School}}</option>
                                                 </select>
                                             </div>
@@ -86,7 +86,7 @@
                                                 School ID
                                             </label>
                                             <div class="col-md-10">
-                                                <select class="form-control" name="schID" ng-model="xForm.schoolID">
+                                                <select class="form-control" name="schID" ng-model="xForm.schoolID" required>
                                                     <option ng-repeat="x in school | filterBy:['Level']:xForm.level | filterBy:['District']:xForm.district | filterBy:['School']:xForm.school | unique:'SchoolID'">{{x.SchoolID}}</option>
                                                 </select>
                                             </div>
