@@ -110,7 +110,7 @@
                         <div class="form-group">
                             <label for="name" class="col-sm-2 control-label">Name :</label>
                             <div class="col-sm-10">
-                                <input type="text" name="name" class="form-control" id="name" placeholder="Name">
+                                <input type="text" name="name" class="form-control" id="name" placeholder="Name" required>
                             </div>
                         </div>
                         
@@ -119,7 +119,7 @@
                                 <div class="col-md-6">
                                     <label for="name" class="col-sm-3 control-label">Date Informed :</label>
                                     <div class="col-sm-8 col-lg-8 col-lg-offset-1">
-                                        <input type="text" name="dateinformed" ng-model="dateinformed" uib-datepicker-popup="yyyy-MM-dd" datepicker-options="datepicker" class="form-control" id="dateinformed" placeholder="Date informed" is-open="popup2.opened">
+                                        <input type="text" name="dateinformed" ng-model="dateinformed" uib-datepicker-popup="yyyy-MM-dd" datepicker-options="datepicker" class="form-control" id="dateinformed" placeholder="Date informed" is-open="popup2.opened" required>
                                         <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                                     </span>
@@ -128,7 +128,7 @@
                                 <div class="col-md-6">
                                     <label for="reply" class="col-sm-2 control-label">Reply :</label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="reply" class="form-control" id="reply" placeholder="Reply" >
+                                        <input type="text" name="reply" class="form-control" id="reply" placeholder="Reply" required>
                                     </div>
                                 </div>
                             </div>
@@ -136,7 +136,7 @@
                         <div class="form-group">
                             <label for="name" class="col-sm-2 control-label">Effectivity of Appointment :</label>
                             <div class="col-sm-10">
-                                <input type="text" name="effectivity" ng-model="effectivity" class="form-control" id="effectivity" placeholder="Effectivity of Appointment"  uib-datepicker-popup="yyyy-MM-dd" datepicker-options="datepicker" is-open="popup.opened">
+                                <input type="text" name="effectivity" ng-model="effectivity" class="form-control" id="effectivity" placeholder="Effectivity of Appointment"  uib-datepicker-popup="yyyy-MM-dd" datepicker-options="datepicker" is-open="popup.opened" required>
                                 <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
                                     </span>
@@ -145,7 +145,7 @@
                         <div class="form-group">
                             <label for="category" class="col-sm-2 control-label">Remarks :</label>
                             <div class="col-sm-10">
-                                <select class="form-control" id="remarks" name="remarks" placeholder="Remarks">
+                                <select class="form-control" id="remarks" name="remarks" placeholder="Remarks" required>
                                     <option value="NOT SUBMITTED">NOT SUBMITTED</option>
                                     <option value="RETURNED FOR COMPLIANCE">RETURNED FOR COMPLIANCE</option>
                                     <option value="COMPLETE AND RECEIVED">COMPLETE AND RECEIVED</option>

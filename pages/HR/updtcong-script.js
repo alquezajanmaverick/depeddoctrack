@@ -3,7 +3,7 @@ app.controller('congupdateCtrl',function($scope){
 	$scope.parseme = function(x){
 		$scope.x = new Date(x);
 		$scope.dateinformed = $scope.x;	
-	}
+	};
 	$scope.open = function() {
 		$scope.popup.opened = true;
 		};
@@ -19,8 +19,8 @@ app.controller('congupdateCtrl',function($scope){
 	
 	$scope.parseme2 = function(x){
 		$scope.x = new Date(x);
-		$scope.effectivity = $scope.x;	
-	}
+		$scope.duedate = $scope.x;	
+	};
 	$scope.open1 = function() {
 			$scope.popup1.opened = true;
 		};
@@ -34,8 +34,8 @@ app.controller('congupdateCtrl',function($scope){
 	
 	$scope.parseme3 = function(x){
 		$scope.x = new Date(x);
-		$scope.effectivity = $scope.x;	
-	}
+		$scope.datereleased = $scope.x;	
+	};
 	
 		
 	$scope.open2 = function() {
@@ -46,16 +46,24 @@ app.controller('congupdateCtrl',function($scope){
 		opened: false
 	};
 	
-
+	/** ---------------------**/
 	
-		
-		
-	
-	
-
-	$scope.clear = function() {
-		$scope.effectivity = null;
+	$scope.parseme4 = function(x){
+		$scope.x = new Date(x);
+		$scope.effectivity = $scope.x;	
 	};
+	
+		
+	$scope.open3 = function() {
+		$scope.popup3.opened = true;
+	};
+
+	$scope.popup3 = {
+		opened: false
+	};
+	
+
+	
 
 	
 });

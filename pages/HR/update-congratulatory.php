@@ -95,7 +95,7 @@ if(isset($_GET['itemno'])){
                         <label for="dateinformed" class="col-sm-2 control-label">Date Informed</label>
                         <div class="col-sm-10">
                             <div class="col-sm-10">
-                                <input type="text" name="effectivity" ng-model="dateinformed" class="form-control" id="effectivity" placeholder="Effectivity of Appointment"  uib-datepicker-popup="yyyy-MM-dd" datepicker-options="datepicker" is-open="popup.opened" ng-init="parseme('<?php echo $x['dateinformed']; ?>')">
+                                <input type="text" name="effectivity" ng-model="dateinformed" class="form-control" id="effectivity" placeholder="Date Informed"  uib-datepicker-popup="yyyy-MM-dd" datepicker-options="datepicker" is-open="popup.opened" ng-init="parseme('<?php echo $x['dateinformed']; ?>')">
                                 <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
                                 </span>
@@ -104,16 +104,16 @@ if(isset($_GET['itemno'])){
                     <div class="form-group">
                         <label for="duedate" class="col-sm-2 control-label">Due Date of Submission</label>
                         <div class="col-sm-10">
-                            <input type="text" name="duedate" ng-model="effectivity" class="form-control" id="duedate" placeholder="Due Date of Submission"  uib-datepicker-popup="yyyy-MM-dd" datepicker-options="datepicker" is-open="popup1.opened" ng-init="parseme2('<?php echo $x['duedate']; ?>')">
+                            <input type="text" name="duedate" ng-model="duedate" class="form-control" id="duedate" placeholder="Due Date of Submission"  uib-datepicker-popup="yyyy-MM-dd" datepicker-options="datepicker" is-open="popup1.opened" ng-init="parseme2('<?php echo $x['duedate']; ?>')">
                                 <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
                                 </span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="datereleased" class="col-sm-2 control-label">Due Date of Submission</label>
+                        <label for="datereleased" class="col-sm-2 control-label">Date Released to SDS</label>
                         <div class="col-sm-10">
-                            <input type="text" name="datereleased" ng-model="effectivity" class="form-control" id="datereleased" placeholder="Date Released to SDS"  uib-datepicker-popup="yyyy-MM-dd" datepicker-options="datepicker" is-open="popup2.opened" ng-init="parseme3('<?php echo $x['hrmodate']; ?>')">
+                            <input type="text" name="datereleased" ng-model="datereleased" class="form-control" id="datereleased" placeholder="Date Released to SDS"  uib-datepicker-popup="yyyy-MM-dd" datepicker-options="datepicker" is-open="popup2.opened" ng-init="parseme3('<?php echo $x['hrmodate']; ?>')">
                                 <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                                 </span>
@@ -125,9 +125,32 @@ if(isset($_GET['itemno'])){
                                 <label>
                                     <input name="isSDS" type="checkbox" ng-model="isSDS" ng-init="isSDS=<?php if($x['isSDS']=='YES'){echo "true";}else{echo "false";}; ?>">Released to SDS
                                 </label>
+                                <input type="hidden" name="isSDS" ng-value="isSDS">
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="form-group">
+                        <label for="effectivity" class="col-sm-2 control-label">Effectivity of Appointment</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="effectivity" ng-model="effectivity" class="form-control" id="effectivity" placeholder="Effectivity of Appointment"  uib-datepicker-popup="yyyy-MM-dd" datepicker-options="datepicker" is-open="popup3.opened" ng-init="parseme4('<?php echo $x['effectivity']; ?>')">
+                                <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="remarks" class="col-sm-2 control-label">Remarks</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="remarks" id="remarks" ng-model="remarks" ng-init="remarks = <?php echo $x['remarks']; ?>">
+                            	<option value="NOT SUBMITTED">NOT SUBMITTED</option>
+                                <option value="RETURNED FOR COMPLIANCE">RETURNED FOR COMPLIANCE</option>
+                                <option value="COMPLETED AND RECEIVED">COMPLETED AND RECEIVED</option>
+                            </select>
+                        </div>
+                    </div>
+                    
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <button type="submit" class="btn btn-default">Submit</button>
