@@ -51,7 +51,7 @@ if(isset($_GET['itemno'])){
             </ul>
             
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="log-out.php">Sign-Out</a>
+                <li><a href="../../log-out.php">Sign-Out</a>
                 </li>
                 
             </ul>
@@ -95,7 +95,7 @@ if(isset($_GET['itemno'])){
                         <label for="dateinformed" class="col-sm-2 control-label">Date Informed</label>
                         <div class="col-sm-10">
                             <div class="col-sm-10">
-                                <input type="text" name="effectivity" ng-model="dateinformed" class="form-control" id="effectivity" placeholder="Date Informed"  uib-datepicker-popup="yyyy-MM-dd" datepicker-options="datepicker" is-open="popup.opened" ng-init="parseme('<?php echo $x['dateinformed']; ?>')">
+                                <input type="text" name="effectivity" ng-model="dateinformed" class="form-control" id="effectivity" placeholder="Date Informed"  uib-datepicker-popup="yyyy-MM-dd" datepicker-options="datepicker" is-open="popup.opened" ng-init="parseme('<?php echo $x['dateinformed']; ?>')" readonly>
                                 <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
                                 </span>

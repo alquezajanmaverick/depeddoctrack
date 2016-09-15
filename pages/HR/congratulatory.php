@@ -13,6 +13,8 @@ $r = $db->rowCount();
 <title>Untitled Document</title>
 <link rel="stylesheet" type="text/css" href="../../libs/css/bootstrap-paper.css">
 <script src="../../libs/js/jquery-3.1.0.min.js"></script>
+<script src="../../libs/js/angular.min.js"></script>
+<script src="../../libs/js/ui-bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -45,7 +47,7 @@ $r = $db->rowCount();
             </ul>
             
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="log-out.php">Sign-Out</a>
+                <li><a href="../../log-out.php">Sign-Out</a>
                 </li>
                 
             </ul>
@@ -78,7 +80,8 @@ $r = $db->rowCount();
                 <?php if($r>0){
 					foreach($x as $c){
 				?>
-                    <tr>
+                	{{if('<?php echo $c['ok']; ?>'=='YES'){color='bg-success'}}}
+                    <tr ng-class="color">
                         <td><center><?php echo $c['itemno']; ?></center></td>
                         <td><center><?php echo $c['name']; ?></center></td>
                         <td><center><?php echo $c['position']; ?></center></td>

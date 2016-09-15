@@ -87,7 +87,7 @@
                                             </label>
                                             <div class="col-md-10">
                                                 <select class="form-control" name="schID" ng-model="xForm.schoolID" required>
-                                                    <option ng-repeat="x in school | filterBy:['Level']:xForm.level | filterBy:['District']:xForm.district | filterBy:['School']:xForm.school | unique:'SchoolID'">{{x.SchoolID}}</option>
+                                                    <option ng-repeat="x in school | filterBy:['Level']:xForm.level | filterBy:['District']:xForm.district | filterBy:['School']:xForm.school | unique:'SchoolID'" ng-selected="$last">{{x.SchoolID}}</option>
                                                 </select>
                                             </div>
                                         </div>

@@ -8,7 +8,10 @@
             <a class="navbar-brand" href="#">SDS</a>
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="#">Home</a>
+                    <a href="congratulatory.php">Congratulatory</a>
+                </li>
+                <li>
+                    <a href="appointment.php">Appointment</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -37,7 +40,7 @@
                     <tr ng-repeat="x in data">
                         <td><center>{{x.itemno}}</center></td>
                         <td><center>{{x.name}}</center></td>
-                        <td><center>{{x.duedate}}</center></td>
+                        <td><center>{{x.duedate | date:'dd-MM-yyyy'}}</center></td>
                         <td><center>
                             <div ng-show="x.ok">
                                 <button type="button" class="btn btn-xs btn-success glyphicon glyphicon-ok-circle" ng-click="openModal(x.itemno,x.name)"> Approve</button>

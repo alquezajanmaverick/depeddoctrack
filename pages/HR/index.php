@@ -14,6 +14,8 @@
 <title>Untitled Document</title>
 <link rel="stylesheet" type="text/css" href="../../libs/css/bootstrap-paper.css">
 <script src="../../libs/js/jquery-3.1.0.min.js"></script>
+<script src="../../libs/js/angular.min.js"></script>
+<script src="../../libs/js/ui-bootstrap.min.js"></script>
 </head>
 
 <body>

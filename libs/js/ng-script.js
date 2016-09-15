@@ -6,6 +6,11 @@ app.controller('positionCtrl', function($scope,$http) {
     });
 
     $scope.xForm = {};
+	
+	$scope.getme = function(x){
+		console.log(x);
+		$scope.xForm.schoolID = x;
+	}
     $scope.processForm = function(){
         $http.post('addprocess.php', $scope.xForm) .success(function(data){
             $('#modal-container-505047').modal('show')
