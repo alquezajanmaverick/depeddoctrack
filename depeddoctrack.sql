@@ -83,6 +83,17 @@ END//
 DELIMITER ;
 
 
+-- Dumping structure for procedure depeddoctracking.fetchCongSDS
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `fetchCongSDS`()
+BEGIN
+	SELECT a.itemno,a.position,a.schoolID,a.schoolName,a.name,c.hrmodate,c.SDSreleaseddate from tblappointee as a
+	left join tblcongratulatory as c
+	on a.itemno = c.itemno;
+END//
+DELIMITER ;
+
+
 -- Dumping structure for procedure depeddoctracking.fetchforSDS
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `fetchforSDS`()
@@ -132,7 +143,7 @@ DELIMITER ;
 
 -- Dumping structure for procedure depeddoctracking.getsingleposition
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getsingleposition`(IN `item` INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getsingleposition`(IN `item` VARCHAR(50))
 BEGIN
 	SELECT * from tblpositions WHERE itemno = item;
 END//
@@ -150,7 +161,7 @@ DELIMITER ;
 
 -- Dumping structure for table depeddoctracking.tblappointee
 CREATE TABLE IF NOT EXISTS `tblappointee` (
-  `itemno` varchar(50) NOT NULL,
+  `itemno` varchar(150) NOT NULL,
   `name` varchar(100) DEFAULT NULL,
   `position` varchar(50) DEFAULT NULL,
   `category` varchar(50) DEFAULT NULL,
@@ -162,11 +173,11 @@ CREATE TABLE IF NOT EXISTS `tblappointee` (
   KEY `position` (`position`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table depeddoctracking.tblappointee: ~0 rows (approximately)
+-- Dumping data for table depeddoctracking.tblappointee: ~1 rows (approximately)
 DELETE FROM `tblappointee`;
 /*!40000 ALTER TABLE `tblappointee` DISABLE KEYS */;
 INSERT INTO `tblappointee` (`itemno`, `name`, `position`, `category`, `dateinformed`, `reply`, `schoolID`, `schoolName`) VALUES
-	('222', 'marlon', 'sdfd', 'sdfsdfdsf', '2016-09-06', 'ghgjghj', 'ertet', 'dfgf');
+	('Deped-001', 'Juan Dela Cruz', 'Teacher 3', 'New', '2016-09-15', 'ok', '107001', 'Agusuhin ES');
 /*!40000 ALTER TABLE `tblappointee` ENABLE KEYS */;
 
 
@@ -179,11 +190,11 @@ CREATE TABLE IF NOT EXISTS `tblappointeeprogress` (
   CONSTRAINT `itemprogress` FOREIGN KEY (`itemno`) REFERENCES `tblappointee` (`itemno`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='progressbar on front end';
 
--- Dumping data for table depeddoctracking.tblappointeeprogress: ~0 rows (approximately)
+-- Dumping data for table depeddoctracking.tblappointeeprogress: ~1 rows (approximately)
 DELETE FROM `tblappointeeprogress`;
 /*!40000 ALTER TABLE `tblappointeeprogress` DISABLE KEYS */;
 INSERT INTO `tblappointeeprogress` (`itemno`, `name`, `progress`) VALUES
-	('222', '', 0);
+	('Deped-001', 'Juan Dela Cruz', 0);
 /*!40000 ALTER TABLE `tblappointeeprogress` ENABLE KEYS */;
 
 
@@ -203,7 +214,7 @@ CREATE TABLE IF NOT EXISTS `tblcongratulatory` (
 DELETE FROM `tblcongratulatory`;
 /*!40000 ALTER TABLE `tblcongratulatory` DISABLE KEYS */;
 INSERT INTO `tblcongratulatory` (`itemno`, `hrmodate`, `isSDS`, `duedate`, `SDSreleaseddate`, `ok`) VALUES
-	('222', NULL, 'NO', NULL, NULL, 'NO');
+	('Deped-001', '2016-09-27', 'NO', '2016-09-27', NULL, 'NO');
 /*!40000 ALTER TABLE `tblcongratulatory` ENABLE KEYS */;
 
 
@@ -219,9 +230,11 @@ CREATE TABLE IF NOT EXISTS `tblpositions` (
   PRIMARY KEY (`itemno`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- Dumping data for table depeddoctracking.tblpositions: 0 rows
+-- Dumping data for table depeddoctracking.tblpositions: 1 rows
 DELETE FROM `tblpositions`;
 /*!40000 ALTER TABLE `tblpositions` DISABLE KEYS */;
+INSERT INTO `tblpositions` (`itemno`, `position`, `positioncategory`, `schoollevel`, `district`, `schoolid`, `schoolname`) VALUES
+	('Deped-002', 'Principal 1', 'New', 'Secondary', 'Subic', '301013', 'Agusuhin IS');
 /*!40000 ALTER TABLE `tblpositions` ENABLE KEYS */;
 
 
@@ -246,11 +259,11 @@ CREATE TABLE IF NOT EXISTS `tblprocess` (
   CONSTRAINT `itemno1` FOREIGN KEY (`itemno`) REFERENCES `tblappointee` (`itemno`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table depeddoctracking.tblprocess: ~0 rows (approximately)
+-- Dumping data for table depeddoctracking.tblprocess: ~1 rows (approximately)
 DELETE FROM `tblprocess`;
 /*!40000 ALTER TABLE `tblprocess` DISABLE KEYS */;
 INSERT INTO `tblprocess` (`itemno`, `isHRMO`, `hrmodate`, `isBO`, `bodatereceived`, `bodatereleased`, `isSGOD`, `sgoddatereceived`, `sgoddatereleased`, `isASDS`, `asdsdatereceived`, `asdsdatereleased`, `isSDS`, `sdsdatereceived`, `sdsdatereleased`) VALUES
-	('222', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL);
+	('Deped-001', 'NO', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL);
 /*!40000 ALTER TABLE `tblprocess` ENABLE KEYS */;
 
 
@@ -263,11 +276,11 @@ CREATE TABLE IF NOT EXISTS `tblremarks` (
   CONSTRAINT `itemno2` FOREIGN KEY (`itemno`) REFERENCES `tblappointee` (`itemno`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table depeddoctracking.tblremarks: ~0 rows (approximately)
+-- Dumping data for table depeddoctracking.tblremarks: ~1 rows (approximately)
 DELETE FROM `tblremarks`;
 /*!40000 ALTER TABLE `tblremarks` DISABLE KEYS */;
 INSERT INTO `tblremarks` (`itemno`, `effectivity`, `remarks`) VALUES
-	('222', '2016-09-27', '? string:? string: ? ?');
+	('Deped-001', '2016-09-15', '? undefined:undefined ?');
 /*!40000 ALTER TABLE `tblremarks` ENABLE KEYS */;
 
 

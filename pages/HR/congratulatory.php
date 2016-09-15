@@ -80,7 +80,6 @@ $r = $db->rowCount();
                 <?php if($r>0){
 					foreach($x as $c){
 				?>
-                	{{if('<?php echo $c['ok']; ?>'=='YES'){color='bg-success'}}}
                     <tr ng-class="color">
                         <td><center><?php echo $c['itemno']; ?></center></td>
                         <td><center><?php echo $c['name']; ?></center></td>
