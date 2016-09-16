@@ -30,10 +30,10 @@ SELECT a.itemno,a.position,a.schoolID,a.schoolName,a.name,p.isASDS,p.asdsdaterec
 LEFT JOIN tblprocess as p
 on a.itemno = p.itemno
 LEFT JOIN tblcongratulatory as c
-on p.itemno = c.itemno
+on p.itemno = c.itemnotblusers
 where c.ok = 'YES' AND p.asdsdatereceived is not null;
 
-/** SDS **/
+`set-bo-process`/** SDS **/
 SELECT a.itemno,a.position,a.schoolID,a.schoolName,a.name,p.isSDS,p.sdsdatereceived,p.sdsdatereleased,c.ok from tblappointee as a
 LEFT JOIN tblprocess as p
 on a.itemno = p.itemno

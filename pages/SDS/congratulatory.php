@@ -11,7 +11,10 @@
                     <a href="#">Congratulatory</a>
                 </li>
                 <li>
-                    <a href="process/">Appointment</a>
+                    <a href="process/">Processing of Appointment</a>
+                </li>
+                <li>
+                    <a href="attested/">Attested of Appointment</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

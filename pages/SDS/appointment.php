@@ -11,7 +11,10 @@
                     <a href="congratulatory.php">Congratulatory</a>
                 </li>
                 <li>
-                    <a href="appointment.php">Appointment</a>
+                    <a href="process/">Process of Appointment</a>
+                </li>
+                <li>
+                    <a href="attested/">Attested of Appointment</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

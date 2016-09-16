@@ -15,7 +15,10 @@ if(isset($_SESSION['user'])){
     }
     elseif($_SESSION['user']=="ASDS"){
             header("Location:pages/ASDS/");
-        }
+    }
+	elseif($_SESSION['user']=="RECORDS"){
+            header("Location:pages/RECORDS/");
+    }
 }
 else{
     header("Location:index.php");

@@ -34,7 +34,7 @@
         
       </ul>
 <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Sign-Out</a></li>
+        <li><a href="../../../log-out.php">Sign-Out</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -82,7 +82,7 @@
                                 <td><center>
                                 	<input style="height:20px;width:138px" type="date" ng-model="x.receivedCSC" ng-disabled="toggle2">
                                     <button type="button" class="btn btn-primary btn-xs glyphicon glyphicon-calendar" ng-click="checkDoor2(toggle2)" ng-model="toggle2" ng-init="toggle2=true" uib-btn-checkbox btn-checkbox-true="false" btn-checkbox-false="true"></button>
-                                    <button type="button" class="btn btn-xs btn-success glyphicon glyphicon-check" ng-disabled="check2" ng-click="postNow2(x.itemno,xreceivedCSC)"></button>
+                                    <button type="button" class="btn btn-xs btn-success glyphicon glyphicon-check" ng-disabled="check2" ng-click="postNow2(x.itemno,x.receivedCSC)"></button>
                                 </center></td>
                                 <td><center>
 	                                <input style="height:20px;width:138px" type="date" ng-model="x.releasedToSDS" ng-disabled="toggle3">

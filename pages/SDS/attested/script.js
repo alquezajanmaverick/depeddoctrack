@@ -1,4 +1,6 @@
-var app = angular.module('transApp',['ui.bootstrap']);
+'use strict';
+var app = angular.module('attestedApp',['ui.bootstrap']);
+
 app.config(["$httpProvider", function ($httpProvider) {
     $httpProvider.defaults.transformResponse.push(function(responseData){
         convertDateStringsToDates(responseData);
@@ -32,8 +34,8 @@ function convertDateStringsToDates(input) {
     }
 }
 
-app.controller('transCtrl',function($scope,$http){
-	$http.get("get-data.php")
+app.controller('attestedCtrl',function($scope,$http){
+	$http.get("get-data")
 		.then(function(response) {
 			$scope.data = response.data;
 	});
@@ -42,30 +44,23 @@ app.controller('transCtrl',function($scope,$http){
 	$scope.postNow = function(x,y){
 		$http.post('post-datereceived.php', {itemno:x,xdate:y}) 
 			.success(function(data){
-		window.location.reload();
+			//window.location.reload();
 		});
 	}
+	
 	$scope.postNow1 = function(x,y){
-		$http.post('post-datetransmitted.php', {itemno:x,xdate:y}) 
+		$http.post('post-dateawarded.php', {itemno:x,xdate:y}) 
 			.success(function(data){
-		window.location.reload();
+			//window.location.reload();
 		});
 	}
+	
 	$scope.postNow2 = function(x,y){
-		console.log(y);
-		$http.post('post-datereceivedCSC.php', {itemno:x,xdate:y}) 
+		$http.post('post-releasedrecords.php', {itemno:x,xdate:y}) 
 			.success(function(data){
-		window.location.reload();
+			//window.location.reload();
 		});
 	}
-	$scope.postNow3 = function(x,y){
-		$http.post('post-released.php', {itemno:x,xdate:y}) 
-			.success(function(data){
-		window.location.reload();
-		});
-	}
-	
-	
 	
 	//-----------------------------------
 	$scope.check=true;
@@ -99,16 +94,4 @@ app.controller('transCtrl',function($scope,$http){
 			$scope.check2 = false;
 		}
 	}
-	
-	//-----------------------------------
-	$scope.check3=true;
-	$scope.checkDoor3 = function(x){
-		console.log(x);
-		if(x==true){
-			$scope.check3 = true;
-		}else{
-			$scope.check3 = false;
-		}
-	}
-	
 });

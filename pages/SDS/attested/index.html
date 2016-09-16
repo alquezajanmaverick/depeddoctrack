@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>DepEd Document Tracking System</title>
+<link rel="stylesheet" type="text/css" href="../../../libs/css/bootstrap-bo.css">
+<script src="../../../libs/js/angular.min.js"></script>
+<script src="../../../libs/js/ui-bootstrap.min.js"></script>
+<script src="script.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <a class="navbar-brand" href="#">SDS</a>
+        <ul class="nav navbar-nav">
+            <li>
+                <a href="../congratulatory.php">Congratulatory</a>
+            </li>
+            <li>
+                <a href="../process/">Processing of Appointment</a>
+            </li>
+            <li class="active">
+                <a href="#">Attested of Appointment</a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="../../../log-out.php">Sign-out</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<br><br><br>
+<br>
+
+<div class="container-fluid" ng-app="attestedApp" ng-controller="attestedCtrl">
+    <div class="row">
+      <div class="col-md-12">
+      	<div class="jumbotron">
+            <table class="table">
+                <caption><input type="text" ng-model="query" placeholder="search here ..."/><button type="button" class="btn btn-xs btn-danger glyphicon glyphicon-erase" ng-click="query=''"></button></caption>
+                <thead class="bg-success">
+                    <tr>
+                        <th><center>Item No.</center></th>
+                        <th><center>Position</center></th>
+                        <th><center>School ID</center></th>
+                        <th><center>School Name</center></th>
+                        <th><center>Name</center></th>
+                        <th><center>Date Received</center></th>
+                        <th><center>Date Awarded to Appointee</center></th>
+                        <th><center>Date Released to Records</center></th>
+                        <th><center></center></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in data">
+                        <td><center>{{x.itemno}}</center></td>
+                        <td><center>{{x.position}}</center></td>
+                        <td><center>{{x.schoolID}}</center></td>
+                        <td><center>{{x.schoolName}}</center></td>
+                        <td><center>{{x.name}}</center></td>
+                        <td><center>
+                        	<input style="height:20px;width:138px" type="date" ng-model="x.datereceivedSDS" ng-disabled="toggle">
+                                    <button type="button" class="btn btn-primary btn-xs glyphicon glyphicon-calendar" ng-click="checkDoor(toggle)" ng-model="toggle" ng-init="toggle=true" uib-btn-checkbox btn-checkbox-true="false" btn-checkbox-false="true"></button>
+                                    <button type="button" class="btn btn-xs btn-success glyphicon glyphicon-check" ng-disabled="check" ng-click="postNow(x.itemno,x.datereceivedSDS)"></button>
+                        </center></td>
+                        <td><center>
+                        	<input style="height:20px;width:138px" type="date" ng-model="x.dateAwarded" ng-disabled="toggle1">
+                                    <button type="button" class="btn btn-primary btn-xs glyphicon glyphicon-calendar" ng-click="checkDoor1(toggle1)" ng-model="toggle1" ng-init="toggle1=true" uib-btn-checkbox btn-checkbox-true="false" btn-checkbox-false="true"></button>
+                                    <button type="button" class="btn btn-xs btn-success glyphicon glyphicon-check" ng-disabled="check1" ng-click="postNow1(x.itemno,x.dateAwarded)"></button>
+                        </center></td>
+                        <td><center>
+                        	<input style="height:20px;width:138px" type="date" ng-model="x.releasedToRecords" ng-disabled="toggle2">
+                                    <button type="button" class="btn btn-primary btn-xs glyphicon glyphicon-calendar" ng-click="checkDoor2(toggle2)" ng-model="toggle2" ng-init="toggle2=true" uib-btn-checkbox btn-checkbox-true="false" btn-checkbox-false="true"></button>
+                                    <button type="button" class="btn btn-xs btn-success glyphicon glyphicon-check" ng-disabled="check2" ng-click="postNow2(x.itemno,x.releasedToRecords)"></button>
+                        </center></td>
+                        <td><center></center></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+</div>
+
+</body>
+</html>
