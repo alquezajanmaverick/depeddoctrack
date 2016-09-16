@@ -17,6 +17,9 @@
                 <li>
                     <a href="add-position.php">Add Position</a>
                 </li>
+                <li>
+                    <a href="process/appointment.html">Appointment</a>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>

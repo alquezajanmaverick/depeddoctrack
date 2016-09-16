@@ -6,13 +6,7 @@
     <meta http-equiv="refresh" content="60"/>
     
     <title><?php echo title; ?></title>
-    <?php // echo css; ?>
-    <!--<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
- 
-          
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
-     <!-- Latest compiled and minified CSS -->
-    <!--<link rel="stylesheet" href="../../libs/css/bootstrap.css">-->
     
     <link rel="stylesheet" href="../../libs/css/bootstrap-paper.css">
     

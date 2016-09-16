@@ -7,11 +7,11 @@
         <div class="container">
             <a class="navbar-brand" href="#">SDS</a>
             <ul class="nav navbar-nav">
-                <li>
+                <li class="active">
                     <a href="congratulatory.php">Congratulatory</a>
                 </li>
                 <li>
-                    <a href="appointment.php">Appointment</a>
+                    <a href="process/">Appointment</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

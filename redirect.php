@@ -13,6 +13,9 @@ if(isset($_SESSION['user'])){
 	elseif($_SESSION['user']=="BUDGET"){
         header("Location:pages/BUDGET/");
     }
+    elseif($_SESSION['user']=="ASDS"){
+            header("Location:pages/ASDS/");
+        }
 }
 else{
     header("Location:index.php");

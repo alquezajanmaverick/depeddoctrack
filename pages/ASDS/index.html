@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>DepEd Document Tracking System</title>
+<link rel="stylesheet" type="text/css" href="../../libs/css/bootstrap-bo.css">
+<script src="../../libs/js/angular.min.js"></script>
+<script src="../../libs/js/ui-bootstrap.min.js"></script>
+<script src="script.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">ASDS</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Appointment <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="../../log-out.php">Sign-Out</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
+<div class="container-fluid" ng-app="asdsApp" ng-controller="asdsCtrl">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+      	<div class="jumbotron">
+            <h3>Appointment</h3>
+
+                <input type="text" ng-model="query" placeholder="search here">
+                <button type="button" class="btn btn-danger btn-xs glyphicon glyphicon-erase" ng-click="query=''"></button>
+            <div class="table-responsive">
+                <table class="table table-condensed table-hover">
+                    <thead>
+                        <tr>
+                            <th><center>Item No.</center></th>
+                            <th><center>Position</center></th>
+                            <th><center>School ID</center></th>
+                            <th><center>School Name</center></th>
+                            <th><center>Name</center></th>
+                            <th><center>Date Received</center></th>
+                            <th><center>Date Released</center></th>
+                            <th><center></center></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in data | filter: query">
+                            <td><center>{{x.itemno}}</center></td>
+                            <td><center>{{x.position}}</center></td>
+                            <td><center>{{x.schoolID}}</center></td>
+                            <td><center>{{x.schoolName}}</center></td>
+                            <td><center>{{x.name}}</center></td>
+                            <td><center>{{x.asdsdatereceived | date:'MM-dd-yyyy'}}</center></td>
+                            <td><center><input style="height: 20px;width: 140px;" type="date" ng-model="x.asdsdatereleased" ng-disabled="toggle" ng-init="toggle=true" ><button class="btn btn-primary btn-xs glyphicon glyphicon-calendar" ng-model="toggle" uib-btn-checkbox btn-checkbox-true="false" btn-checkbox-false="true" ng-click="validateDoor(toggle)" ></button></center></td>
+                            <td><center><button class="btn btn-success btn-xs glyphicon glyphicon-check" ng-disabled="check" ng-click="updateMe(x.itemno,x.asdsdatereleased)"></button></center></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+      </div>
+    </div>
+</div>
+
+</body>
+</html>
