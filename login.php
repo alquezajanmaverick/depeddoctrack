@@ -6,7 +6,7 @@ session_start();
 if(isset($_POST['username']))
 {
     
-    $db->query("SELECT * from tblusers WHERE UserName = ? AND Password = ? limit 1");
+    $db->query("SELECT * from tblusers WHERE BINARY UserName = ? AND Password = ? limit 1");
     $db->bind(1,$_POST['username']);
     $db->bind(2,$_POST['password']);
     $s = $db->single();

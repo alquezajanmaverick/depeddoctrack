@@ -35,7 +35,8 @@
                 </li>
                 <li class="active"><a href="#">Processing</a>
                 </li>
-                
+                <li><a href="transmission/">Transmission</a>
+                </li>
               </li>
             </ul>
             
@@ -54,11 +55,10 @@
 	<div class="row">
         <div class="col-md-8 col-md-offset-2">
         	<div class="jumbotron">
-                <h3>Appointees under process ...</h3>
                 <p></p>
                 <div class="table-responsive">
                     <table class="table table-condensed table-hover">
-                        <thead>
+                        <thead class="bg-primary">
                             <tr>
                                 <th><center>Item No.</center></th>
                                 <th><center>Position</center></th>

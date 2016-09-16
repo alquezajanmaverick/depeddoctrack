@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Final Process</title>
+    <link rel="stylesheet" href="../../../libs/css/bootstrap-bo.css">
+    <script src="../../../libs/js/angular.min.js"></script>
+    <script src="../../../libs/js/ui-bootstrap.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<body ng-app="transApp" ng-controller="transCtrl">
+ <nav class="navbar navbar-inverse navbar-fixed-top">
+	   
+  <div class="container">
+
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">HRMO</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="../assignment.php">Appointees <span class="sr-only">(current)</span></a></li>
+        <li><a href="../congratulatory.php">Congratulatory</a></li>
+        <li><a href="../process.php">Process</a></li>
+        <li class="active"><a href="#">Transmission</a></li>
+        
+      </ul>
+<ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Sign-Out</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<br><br><br><br><br>
+<div class="container-fluid">
+    <div class="row">
+    	<div class="col-md-12">
+			<div class="jumbotron">
+                <input type="text" ng-model="query" >
+                <button type="button" class="btn btn-danger btn-xs glyphicon glyphicon-erase"></button>
+                <div class="table-responsive">
+                    <table class="table table-condensed table-bordered">
+                        <thead class="bg-success">
+                            <tr>
+                                <th><center>Item No.</center></th>
+                                <th><center>Position</center></th>
+                                <th><center>School ID</center></th>
+                                <th><center>School Name</center></th>
+                                <th><center>Name</center></th>
+                                <th><center>Date Received Processed Appointment</center></th>
+                                <th><center>Date Transmitted to CSC </center></th>
+                                <th><center>Date Received from CSC Attested Appointment</center></th>
+                                <th><center>Date Released SDS Attested Appointment</center></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="x in data">
+                                <td><center>{{x.itemno}}</center></td>
+                                <td><center>{{x.position}}</center></td>
+                                <td><center>{{x.schoolID}}</center></td>
+                                <td><center>{{x.schoolName}}</center></td>
+                                <td><center>{{x.name}}</center></td>
+                                <td><center>
+                                	<input style="height:20px;width:138px" type="date" ng-model="x.hrmoreceived" ng-disabled="toggle">
+                                    <button type="button" class="btn btn-primary btn-xs glyphicon glyphicon-calendar" ng-click="checkDoor(toggle)" ng-model="toggle" ng-init="toggle=true" uib-btn-checkbox btn-checkbox-true="false" btn-checkbox-false="true"></button>
+                                    <button type="button" class="btn btn-xs btn-success glyphicon glyphicon-check" ng-disabled="check" ng-click="postNow(x.itemno,x.hrmoreceived)"></button>
+                                </center></td>
+                                <td><center>
+                                	<input style="height:20px;width:138px" ng-model="x.transmittedCSC" type="date" ng-disabled="toggle1">
+                                    <button type="button" class="btn btn-primary btn-xs glyphicon glyphicon-calendar" ng-click="checkDoor1(toggle1)" ng-model="toggle1" ng-init="toggle1=true" uib-btn-checkbox btn-checkbox-true="false" btn-checkbox-false="true"></button>
+                                    <button type="button" class="btn btn-xs btn-success glyphicon glyphicon-check" ng-disabled="check1" ng-click="postNow1(x.itemno,x.transmittedCSC)"></button>
+                                </center></td>
+                                <td><center>
+                                	<input style="height:20px;width:138px" type="date" ng-model="x.receivedCSC" ng-disabled="toggle2">
+                                    <button type="button" class="btn btn-primary btn-xs glyphicon glyphicon-calendar" ng-click="checkDoor2(toggle2)" ng-model="toggle2" ng-init="toggle2=true" uib-btn-checkbox btn-checkbox-true="false" btn-checkbox-false="true"></button>
+                                    <button type="button" class="btn btn-xs btn-success glyphicon glyphicon-check" ng-disabled="check2" ng-click="postNow2(x.itemno,xreceivedCSC)"></button>
+                                </center></td>
+                                <td><center>
+	                                <input style="height:20px;width:138px" type="date" ng-model="x.releasedToSDS" ng-disabled="toggle3">
+                                    <button type="button" class="btn btn-primary btn-xs glyphicon glyphicon-calendar" ng-click="checkDoor3(toggle3)" ng-model="toggle3" ng-init="toggle3=true" uib-btn-checkbox btn-checkbox-true="false" btn-checkbox-false="true"></button>
+                                    <button type="button" class="btn btn-xs btn-success glyphicon glyphicon-check" ng-disabled="check3" ng-click="postNow3(x.itemno,x.releasedToSDS)"></button>
+                                </center></td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

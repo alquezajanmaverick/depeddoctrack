@@ -2,26 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3878a9ec-ee96-4feb-b766-d959cc4d4e3b" name="Default" comment="update files">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pages/SGOD/process/appointment.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pages/ASDS/get-data.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pages/BUDGET/get-data.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pages/SDS/process/get-data.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pages/SGOD/process/get-data.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pages/ASDS/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pages/SDS/process/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pages/ASDS/script.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pages/BUDGET/script.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pages/SDS/process/script.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pages/SGOD/process/script.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pages/ASDS/update.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pages/BUDGET/update.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pages/SDS/process/update.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pages/SGOD/process/update.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/SDS/begin.php" afterPath="$PROJECT_DIR$/pages/SDS/begin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/SDS/congratulatory.php" afterPath="$PROJECT_DIR$/pages/SDS/congratulatory.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/SGOD/header.php" afterPath="$PROJECT_DIR$/pages/SGOD/header.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/SDS/index.php" afterPath="$PROJECT_DIR$/pages/SDS/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/redirect.php" afterPath="$PROJECT_DIR$/redirect.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pages/HR/transmission/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/HR/assignment.php" afterPath="$PROJECT_DIR$/pages/HR/assignment.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/HR/congratulatory.php" afterPath="$PROJECT_DIR$/pages/HR/congratulatory.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libs/css/_notes/dwsync.xml" afterPath="$PROJECT_DIR$/libs/css/_notes/dwsync.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/HR/_notes/dwsync.xml" afterPath="$PROJECT_DIR$/pages/HR/_notes/dwsync.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/SDS/process/index.html" afterPath="$PROJECT_DIR$/pages/SDS/process/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/HR/index.php" afterPath="$PROJECT_DIR$/pages/HR/index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/login.php" afterPath="$PROJECT_DIR$/login.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/HR/process.php" afterPath="$PROJECT_DIR$/pages/HR/process.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="depeddoctrack.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -74,6 +64,12 @@
         <option value="$PROJECT_DIR$/pages/SDS/index.php" />
         <option value="$PROJECT_DIR$/pages/SDS/congratulatory.php" />
         <option value="$PROJECT_DIR$/pages/SDS/process/index.html" />
+        <option value="$PROJECT_DIR$/pages/HR/index.php" />
+        <option value="$PROJECT_DIR$/pages/HR/assignment.php" />
+        <option value="$PROJECT_DIR$/pages/HR/congratulatory.php" />
+        <option value="$PROJECT_DIR$/pages/HR/process.php" />
+        <option value="$PROJECT_DIR$/pages/HR/transmission/index.html" />
+        <option value="$PROJECT_DIR$/login.php" />
       </list>
     </option>
   </component>
@@ -305,22 +301,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/login.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
-          <caret line="16" column="42" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pages/HR/assignment.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="289" max-vertical-offset="1802">
-          <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pages/SGOD/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1326">
@@ -521,6 +501,54 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.028006589" vertical-offset="0" max-vertical-offset="607">
           <caret line="1" column="23" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/HR/process.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4006734" vertical-offset="408" max-vertical-offset="1683">
+          <caret line="38" column="21" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/HR/congratulatory.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6296296" vertical-offset="408" max-vertical-offset="1904">
+          <caret line="46" column="16" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/HR/assignment.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5151515" vertical-offset="391" max-vertical-offset="1836">
+          <caret line="41" column="16" selection-start-line="41" selection-start-column="16" selection-end-line="41" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/HR/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.57239056" vertical-offset="408" max-vertical-offset="1819">
+          <caret line="44" column="16" selection-start-line="44" selection-start-column="16" selection-end-line="45" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/HR/transmission/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29259896" vertical-offset="0" max-vertical-offset="581">
+          <caret line="10" column="44" selection-start-line="10" selection-start-column="44" selection-end-line="10" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.53212523" vertical-offset="0" max-vertical-offset="607">
+          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
           <folding />
         </state>
       </provider>
