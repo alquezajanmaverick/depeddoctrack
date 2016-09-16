@@ -15,6 +15,7 @@ $r = $db->rowCount();
 <script src="../../libs/js/jquery-3.1.0.min.js"></script>
 <script src="../../libs/js/angular.min.js"></script>
 <script src="../../libs/js/ui-bootstrap.min.js"></script>
+<script src="prompt-ok.js"></script>
 </head>
 
 <body>
@@ -58,7 +59,7 @@ $r = $db->rowCount();
 </nav>
 
 <br><br>
-    <div class="container-fluid">
+    <div class="container-fluid" ng-app="congApp" ng-controller="congCtrl"> 
     	<div class="jumbotron">
             <p>Test.</p>
             <div class="table-responsive">
@@ -73,6 +74,7 @@ $r = $db->rowCount();
                         <th><center>Due Date of Submission</center></th>
                         <th><center>Date Released to SDS</center></th>
                         <th><center>Complete</center></th>
+                        <th><center></center></th>
                         <th><center></center></th>
                     </tr>
                 </thead>
@@ -89,7 +91,8 @@ $r = $db->rowCount();
                         <td><center><?php echo $c['duedate']; ?></center></td>
                         <td><center><?php echo $c['hrmodate']; ?></center></td>
                         <td><center><?php echo $c['ok']; ?></center></td>
-                        <td><center><button class="btn btn-xs btn-warning glyphicon glyphicon-edit" onclick="window.location.assign('update-congratulatory.php?itemno=<?php echo $c['itemno']; ?>')"> UPDATE</button></center></td>	
+                        <td><center><button class="btn btn-xs btn-warning glyphicon glyphicon-edit" onclick="window.location.assign('update-congratulatory.php?itemno=<?php echo $c['itemno']; ?>')"> UPDATE</button></center></td>
+                        <td><center><button class="btn btn-xs btn-success glyphicon glyphicon-check" ng-click="promptMe('<?php echo $c['itemno']; ?>')">Mark as COMPLETE</button></center></td>	
                     </tr>
                 <?php } } ?>
                 </tbody>
@@ -97,5 +100,6 @@ $r = $db->rowCount();
         </div>
         </div>
     </div>
+
 </body>
 </html>

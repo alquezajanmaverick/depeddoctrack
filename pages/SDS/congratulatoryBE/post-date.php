@@ -9,7 +9,7 @@
 	{
 		$xdate = date('y',$itime).'/'.date('m',$itime).'/'.date('d',$itime);
 	}
-	$db->query("UPDATE tblcongratulatory SET SDSreleaseddate = ?,isSDS='YES' WHERE itemno = ? limit 1");
+	$db->query("CALL marksds(?,?)");
 	$db->bind(1,$xdate);
 	$db->bind(2,$request->itemno);
 	if($db->execute()){

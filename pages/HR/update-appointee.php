@@ -142,8 +142,7 @@ if(isset($_GET['itemno'])){
                         <div class="form-group">
                             <label for="category" class="col-sm-2 control-label">Remarks :</label>
                             <div class="col-sm-10">
-                                <select class="form-control" id="remarks" ng-model="remarks" ng-init="remarks = '<?php 
-								if(x['remarks']==null){ echo 'NOT SUBMITTED';}else{echo $x['remarks'];} ?>'" name="remarks" placeholder="Remarks" required>		
+                                <select class="form-control" id="remarks" ng-model="remarks" ng-init="remarks = '<?php echo $x['remarks']; ?>'" name="remarks" placeholder="Remarks" required>		
                                 	<option value="">--</option>
                                     <option value="NOT SUBMITTED">NOT SUBMITTED</option>
                                     <option value="RETURNED FOR COMPLIANCE">RETURNED FOR COMPLIANCE</option>

@@ -5,10 +5,13 @@ if(isset($_SESSION['user'])){
         header("Location:pages/SGOD/");
     }
     elseif($_SESSION['user']=="HRMO"){
-        header("Location:pages/HRMO/");
+        header("Location:pages/HR/");
     }
     elseif($_SESSION['user']=="SDS"){
         header("Location:pages/SDS/");
+    }
+	elseif($_SESSION['user']=="BUDGET"){
+        header("Location:pages/BUDGET/");
     }
 }
 else{

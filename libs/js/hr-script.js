@@ -211,7 +211,8 @@ app.config(function($routeProvider) {
 		 $http.get("get-position.php")
 		.then(function(response) {
 			$scope.pos = response.data;
-		
+			
+
 		});
 		$scope.ProcessForm = function(){
 			$scope.m.itemno = $scope.xForm.itemno;
