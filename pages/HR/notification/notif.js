@@ -21,7 +21,7 @@ app.controller('notifCtrl',function($scope,$http,toast){
         $scope.listNotif = response.data;
         
         if($scope.listNotif > 0){
-            $scope.notify("<strong>"+$scope.listNotif+"</strong> appointee/s will exceed the due date of submission at the end of this day. <strong><a href='notification/show-warning.html'>View Details</a></strong>",9000);
+            $scope.notify("<strong>"+$scope.listNotif+"</strong> appointee/s will exceed the due date of submission tomorrow. <strong><a href='notification/show-warning.html'>View Details</a></strong>",9000);
         }
     });
 
