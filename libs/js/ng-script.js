@@ -3,6 +3,8 @@ app.controller('positionCtrl', function($scope,$http) {
      $http.get("../../pages/school.json")
     .then(function(response) {
         $scope.school = response.data;
+		$scope.xForm = {schoolID : $scope.school[0].SchoolID};
+		console.log($scope.xForm.schoolID);
     });
 
     $scope.xForm = {};
@@ -10,6 +12,12 @@ app.controller('positionCtrl', function($scope,$http) {
 	$scope.getme = function(x){
 		console.log(x);
 		$scope.xForm.schoolID = x;
+	}
+	
+	
+	
+	$scope.b = function(e){
+		console.log(e);
 	}
     $scope.processForm = function(){
         $http.post('addprocess.php', $scope.xForm) .success(function(data){

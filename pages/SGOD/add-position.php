@@ -86,12 +86,13 @@
                                                 School ID
                                             </label>
                                             <div class="col-md-10">
-                                                <select class="form-control" name="schID" ng-model="xForm.schoolID" required>
-                                                    <option ng-repeat="x in school | filterBy:['Level']:xForm.level | filterBy:['District']:xForm.district | filterBy:['School']:xForm.school | unique:'SchoolID'">{{x.SchoolID}}</option>
+                                                <select style="display:none" class="form-control" name="schID" ng-model="xForm.schoolID" required ng-init="xForm.schoolID = options[$last]">
+                                                    <option ng-repeat=" x in school | filterBy:['Level']:xForm.level | filterBy:['District']:xForm.district | filterBy:['School']:xForm.school | unique:'SchoolID' | limitTo:1" ng-selected="xForm.schoolID = x.SchoolID">{{x.SchoolID}}</option>
                                                 </select>
+                                                
                                             </div>
                                         </div>
-
+                                        <input type="text" class="form-control" ng-model="xForm.schoolID"/>
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
 
