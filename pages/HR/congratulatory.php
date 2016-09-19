@@ -41,7 +41,7 @@ $r = $db->rowCount();
                 <li class="active"><a 
                  href="#">Congratulatory</a>
                 </li>
-                <li><a href="process.php">Processing</a>
+                <li><a href="process.php">Processing of Appointment</a>
                 </li>
                 <li><a href="transmission/">Transmission</a>
                 </li>

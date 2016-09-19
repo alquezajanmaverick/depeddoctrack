@@ -33,7 +33,7 @@
                 </li>
                 <li><a href="congratulatory.php">Congratulatory</a>
                 </li>
-                <li class="active"><a href="#">Processing</a>
+                <li class="active"><a href="#">Processing of Appointment</a>
                 </li>
                 <li><a href="transmission/">Transmission</a>
                 </li>

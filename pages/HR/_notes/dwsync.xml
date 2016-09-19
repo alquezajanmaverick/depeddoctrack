@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="index.php" server="X:/wamp64/www/depeddoctrack/" local="131182050122070114" remote="131182050120000000" Dst="0" />
-<file name="assignment.php" server="X:/wamp64/www/depeddoctrack/" local="131182198192534725" remote="131182198190000000" Dst="0" />
-<file name="congratulatory.php" server="X:/wamp64/www/depeddoctrack/" local="131183720251032754" remote="131183720250000000" Dst="0" />
-<file name="process.php" server="X:/wamp64/www/depeddoctrack/" local="131184768039451116" remote="131184768030000000" Dst="0" />
+<file name="index.php" server="X:/wamp64/www/depeddoctrack/" local="131186434186559815" remote="131186434180000000" Dst="0" />
+<file name="assignment.php" server="X:/wamp64/www/depeddoctrack/" local="131184767640892811" remote="131184767640000000" Dst="0" />
+<file name="congratulatory.php" server="X:/wamp64/www/depeddoctrack/" local="131186771263752225" remote="131186771260000000" Dst="0" />
+<file name="process.php" server="X:/wamp64/www/depeddoctrack/" local="131184782972806611" remote="131184782970000000" Dst="0" />
 <file name="get-position.php" server="X:/wamp64/www/depeddoctrack/" local="131182026878672402" remote="131182026870000000" Dst="0" />
 <file name="script.js" server="X:/wamp64/www/depeddoctrack/" local="131182197120308012" remote="131182197120000000" Dst="0" />
 <file name="add-appointee.php" server="X:/wamp64/www/depeddoctrack/" local="131182944826352299" remote="131182944820000000" Dst="0" />
@@ -20,4 +20,7 @@
 <file name="get-process.php" server="X:/wamp64/www/depeddoctrack/" local="131184623200000000" remote="131184623200000000" Dst="0" />
 <file name="updateprocess.php" server="X:/wamp64/www/depeddoctrack/" local="131184653840000000" remote="131184653840000000" Dst="0" />
 <file name="process.js" server="X:/wamp64/www/depeddoctrack/" local="131184657953445377" remote="131184657950000000" Dst="0" />
+<file name="angular-toast.css" server="X:/wamp64/www/depeddoctrack/" local="130990755500000000" remote="130990755500000000" Dst="0" />
+<file name="angular-toast.min.js" server="X:/wamp64/www/depeddoctrack/" local="130990755500000000" remote="130990755500000000" Dst="0" />
+<file name="prompt-ok.js" server="X:/wamp64/www/depeddoctrack/" local="131184596736913708" remote="131184596730000000" Dst="0" />
 </dwsync>
