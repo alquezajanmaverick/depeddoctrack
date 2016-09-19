@@ -28,7 +28,10 @@
     
     <div class="container" >
         <center>
-               
+               <input type="text" ng-model="q" placeholder="Search here ...">
+                &nbsp;&nbsp;
+                <small>Items per page : </small><input style="width:50px;" type="number" ng-model="ctr" ng-init="ctr=5">
+                
                 <table class="table table-hover" style="margin-top:100px;" >
                 <thead class="bg-primary">
                     <tr>
@@ -40,7 +43,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="x in data">
+                    <tr dir-paginate="x in data | filter:q | itemsPerPage: ctr">
                         <td><center>{{x.itemno}}</center></td>
                         <td><center>{{x.name}}</center></td>
                         <td><center>{{x.duedate | date:'dd-MM-yyyy'}}</center></td>
@@ -53,6 +56,7 @@
                     </tr>
                 </tbody>
             </table>
+            <dir-pagination-controls template-url="../../libs/js/dirPaginate.html"></dir-pagination-controls>
         </center>
     </div>
 </div>

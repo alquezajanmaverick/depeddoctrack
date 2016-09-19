@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deped Document Tracker</title>
+    <link rel="stylesheet" href="../../../libs/css/bootstrap-paper.css">
+    <script src="../../../libs/js/angular.min.js"></script>
+    <script src="../../../libs/js/dirPaginate.js"></script>
+    <script src="../../../libs/js/ui-bootstrap.min.js"></script>
+    
+    <script src="script.js"></script>
+</head>
+<body ng-app="listApp" ng-controller="listCtrl">
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button> <a class="navbar-brand" href="#">DepEd</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="../index.php">Home</a>
+                </li>
+                <li>
+                    <a href="index.html">List of Appointed Positions</a>
+                </li>
+                <li>
+                    <a href="../add-position.php">Add Position</a>
+                </li>
+                <li>
+                    <a href="../process/appointment.html">Process of Appointment</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="../../../log-out.php">Sign-Out</a>
+                </li>
+                
+            </ul>
+        </div>
+        </div>
+    </nav>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="jumbotron">
+                <p>List of Appointee.</p>
+                <input type="text" ng-model="q" placeholder="Search here ...">
+                &nbsp;&nbsp;
+                <small>Items per page : </small><input style="width:50px;" type="number" ng-model="ctr" ng-init="ctr=5">
+                
+                <div class="table-responsive">
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th><center>Item No.</center></th>
+                                <th><center>Position</center></th>
+                                <th><center>School ID</center></th>
+                                <th><center>School Name</center></th>
+                                <th><center>Name</center></th>
+                                <th><center></center></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr dir-paginate="x in data | filter:q | itemsPerPage: ctr">
+                                <td><center>{{x.itemno}}</center></td>
+                                <td><center>{{x.position}}</center></td>
+                                <td><center>{{x.schoolID}}</center></td>
+                                <td><center>{{x.schoolName}}</center></td>
+                                <td><center>{{x.name}}</center></td>
+                                <td><center><button ng-click="delMe(x.itemno)" class="btn btn-xs btn-danger glyphicon glyphicon-trash"></button></center></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <dir-pagination-controls template-url="../../../libs/js/dirPaginate.html"></dir-pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

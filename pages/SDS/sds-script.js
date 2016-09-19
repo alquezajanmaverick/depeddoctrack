@@ -1,4 +1,4 @@
-var app = angular.module('sdsApp',['ngRoute','ui.bootstrap']);
+var app = angular.module('sdsApp',['ngRoute','ui.bootstrap','angularUtils.directives.dirPagination']);
 app.factory("Globalvar",function(){
         return {};
 });

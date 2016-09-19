@@ -19,6 +19,9 @@ if(isset($_SESSION['user'])){
 	elseif($_SESSION['user']=="RECORDS"){
             header("Location:pages/RECORDS/");
     }
+    elseif($_SESSION['user']=="ADMINISTRATOR"){
+            header("Location:pages/ADMINISTRATOR/");
+    }
 }
 else{
     header("Location:index.php");

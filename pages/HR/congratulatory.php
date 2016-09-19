@@ -63,7 +63,6 @@ $r = $db->rowCount();
 <br><br>
     <div class="container-fluid" ng-app="congApp" ng-controller="congCtrl"> 
     	<div class="jumbotron">
-            <p>Test.</p>
             <div class="table-responsive">
             <table class="table table-condensed">
                 <thead class="bg-primary">

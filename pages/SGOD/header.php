@@ -15,10 +15,13 @@
                     <a href="<?php echo 'http://'.SERVERROOT.'pages/SGOD/'; ?>">Home</a>
                 </li>
                 <li>
+                    <a href="<?php echo 'http://'.SERVERROOT.'pages/SGOD/list/'; ?>">List of Appointed Positions</a>
+                </li>
+                <li>
                     <a href="add-position.php">Add Position</a>
                 </li>
                 <li>
-                    <a href="process/appointment.html">Appointment</a>
+                    <a href="process/appointment.html">Process of Appointment</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

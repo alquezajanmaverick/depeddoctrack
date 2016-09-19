@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deped Document Tracker</title>
+    <link rel="stylesheet" href="../../../libs/css/bootstrap-bo.css">
+    <script src="../../../libs/js/angular.min.js"></script>
+    <script src="../../../libs/js/ui-bootstrap.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+    <div class="container" ng-app="warningApp" ng-controller="warningCtrl">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <br><br><br>
+                <div class="jumbotron">
+                    <div class="table-reponsive">
+                        <legend>List of appointee</legend>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th><center>Item No.</center></th>
+                                    <th><center>Position</center></th>
+                                    <th><center>School ID</center></th>
+                                    <th><center>School Name</center></th>
+                                    <th><center>Name</center></th>
+                                    <th><center>Due-date of Submission</center></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="x in data">
+                                    <td><center>{{x.itemno}}</center></td>
+                                    <td><center>{{x.position}}</center></td>
+                                    <td><center>{{x.schoolID}}</center></td>
+                                    <td><center>{{x.schoolName}}</center></td>
+                                    <td><center>{{x.name}}</center></td>
+                                    <td><center>{{x.duedate}}</center></td>
+                                    <td><center><button ng-click="go(x.itemno)" class="btn btn-xs btn-warning glyphicon glyphicon-edit"></button></center></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

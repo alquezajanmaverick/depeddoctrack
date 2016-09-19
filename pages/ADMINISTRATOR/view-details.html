@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Administrator</title>
+    <link rel="stylesheet" type="text/css" href="../../libs/css/bootstrap-bo.css">
+    <link rel="stylesheet" type="text/css" href="../../pages/HR/angular-toast.css">
+    <script src="../../libs/js/angular.min.js"></script>
+    <script src="../../libs/js/angular-route.min.js"></script>
+    <script src="../../libs/js/ui-bootstrap.min.js"></script>
+    <script src="../../pages/HR/angular-toast.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<body ng-app="adminApp" ng-controller="viewCtrl">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="jumbotron">
+                    <p><button type="button" class="btn btn-sm btn-danger glyphicon glyphicon-home" ng-click="home()"> Back</button></p>
+                    <h2>Details of <strong>{{details[0].name}}</strong>:</h2>
+                    <div class="row">
+                        <div class="col-md-2 col-sm-2 col-lg-2 well"><center><strong><small>Appointment Step<span class="caret"></span></small></strong></center></div>
+                        <div class="col-md-2 col-sm-2 col-lg-2 well"><center><strong><small>Congratulatory Step<span class="caret"></span></small></strong></center></div>
+                        <div class="col-md-4 col-sm-4 col-lg-4 well"><center><strong><small>Processing of Appoinment<span class="caret"></span></small></strong></center></div>
+                        <div class="col-md-2 col-sm-2 col-lg-2 well"><center><strong><small>Transmission to CSC Step<span class="caret"></span></small></strong></center></div>
+                        <div class="col-md-2 col-sm-2 col-lg-2 well"><center><strong><small>Awarding Step<span class="caret"></span></small></strong></center></div>
+                    </div>
+                    <div class="row">
+                        <uib-progressbar class="progress-striped active" max="100" type="type" value="progress[0].progress"></uib-progressbar>
+                    </div>
+                    <div class="row">
+                        <p>Document is currently under : <strong>{{progress[0].curLocation}}</strong></p>
+                        <blockquote>Date received by {{progress[0].curLocation}}: <strong>{{progress[0].datereceived | date: 'MMMM dd, yyyy'}}</strong></blockquote>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

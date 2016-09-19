@@ -13,9 +13,12 @@
 <meta charset="utf-8">
 <title>Untitled Document</title>
 <link rel="stylesheet" type="text/css" href="../../libs/css/bootstrap-paper.css">
+<link rel="stylesheet" href="angular-toast.css">
 <script src="../../libs/js/jquery-3.1.0.min.js"></script>
 <script src="../../libs/js/angular.min.js"></script>
 <script src="../../libs/js/ui-bootstrap.min.js"></script>
+<script src="angular-toast.min.js" ></script>
+<script src="notification/notif.js"></script>
 </head>
 
 <body>
@@ -59,7 +62,7 @@
     <!-- /.container-fluid -->
 </nav>
 
-<div class="container-fluid">
+<div class="container-fluid" ng-app="notifApp" ng-controller="notifCtrl">
 	<div class="jumbotron">
     <p>List of Vacant Position:</p>
     <div class="table-responsive">

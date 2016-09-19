@@ -2,13 +2,18 @@
 -- Host:                         127.0.0.1
 -- Server version:               5.7.11 - MySQL Community Server (GPL)
 -- Server OS:                    Win64
--- HeidiSQL Version:             9.3.0.4984
+-- HeidiSQL Version:             8.3.0.4822
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+-- Dumping database structure for depeddoctracking
+CREATE DATABASE IF NOT EXISTS `depeddoctracking` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `depeddoctracking`;
+
 
 -- Dumping structure for procedure depeddoctracking.addappointee
 DELIMITER //
@@ -197,6 +202,28 @@ END//
 DELIMITER ;
 
 
+-- Dumping structure for procedure depeddoctracking.get-progress
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get-progress`(IN `xitem` VARCHAR(50))
+BEGIN
+	SELECT * from tblitemTracker WHERE itemno = xitem limit 1;
+END//
+DELIMITER ;
+
+
+-- Dumping structure for procedure depeddoctracking.get-records
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get-records`()
+BEGIN
+	SELECT a.itemno,a.name,a.position,a.schoolID,a.schoolName,t.dateAwarded,t.releasedToRecords,t.recordsreceived,t.releasedAttested from tblappointee as a
+	LEFT JOIN tbltransmission as t
+	ON a.itemno = t.itemno
+	WHERE t.releasedToRecords is not null
+	AND t.dateAwarded is null;
+END//
+DELIMITER ;
+
+
 -- Dumping structure for procedure depeddoctracking.get-sds-process
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get-sds-process`()
@@ -227,6 +254,15 @@ END//
 DELIMITER ;
 
 
+-- Dumping structure for procedure depeddoctracking.get-single-user
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get-single-user`(IN `uid` VARCHAR(50))
+BEGIN
+ SELECT * from tblusers WHERE userID = uid limit 1;
+END//
+DELIMITER ;
+
+
 -- Dumping structure for procedure depeddoctracking.get-transmission
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get-transmission`()
@@ -235,6 +271,15 @@ BEGIN
 	left join tbltransmission as t
 	on a.itemno = t.itemno
 	WHERE t.ready=1;
+END//
+DELIMITER ;
+
+
+-- Dumping structure for procedure depeddoctracking.get-users
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get-users`()
+BEGIN
+	SELECT * from tblusers;
 END//
 DELIMITER ;
 
@@ -263,6 +308,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `marksds`(IN `ddate` DATE, IN `item`
 BEGIN
 	UPDATE `tblcongratulatory` SET `SDSreleaseddate`=ddate,`isSDS`='YES' WHERE `itemno` = item limit 1;
 	UPDATE `tblprocess` SET `hrmodatereceived` = ddate WHERE `itemno` = item limit 1;
+	UPDATE tblitemTracker set progress = 40,curLocation = 'HRMO',datereceived = ddate WHERE itemno = item limit 1;
 END//
 DELIMITER ;
 
@@ -299,6 +345,7 @@ DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `post-sds-awarded`(IN `xdate` DATE, IN `xitem` VARCHAR(50))
 BEGIN
 	UPDATE tbltransmission set dateAwarded = xdate WHERE itemno = xitem limit 1;
+	UPDATE tblitemTracker set progress = 100,curLocation = 'BUDGET',datereceived = xdate WHERE itemno = xitem limit 1;
 END//
 DELIMITER ;
 
@@ -326,6 +373,7 @@ DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `post-transmit`(IN `xdate` DATE, IN `xitem` VARCHAR(50))
 BEGIN
 		UPDATE tbltransmission SET transmittedCSC = xdate WHERE itemno = xitem limit 1;
+		UPDATE tblitemTracker set progress = 95,curLocation = 'CSC',datereceived = xdate WHERE itemno = xitem limit 1;
 END//
 DELIMITER ;
 
@@ -334,8 +382,9 @@ DELIMITER ;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `set-asds-process`(IN `xdate` DATE, IN `xitem` VARCHAR(50))
 BEGIN
-	UPDATE tblprocess set asdsdatereleased = xdate,isBO = 'YES' WHERE itemno = xitem limit 1;
+	UPDATE tblprocess set asdsdatereleased = xdate,isSDS = 'YES' WHERE itemno = xitem limit 1;
 	UPDATE tblprocess set sdsdatereceived = xdate WHERE itemno = xitem limit 1;
+	UPDATE tblitemTracker set progress = 80,curLocation = 'SDS',datereceived = xdate WHERE itemno = xitem limit 1;
 END//
 DELIMITER ;
 
@@ -346,6 +395,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `set-bo-process`(IN `xdate` DATE, IN
 BEGIN
 	UPDATE tblprocess set bodatereleased = xdate,isBO = 'YES' WHERE itemno = xitem limit 1;
 	UPDATE tblprocess set sgoddatereceived = xdate WHERE itemno = xitem limit 1;
+	UPDATE tblitemTracker set progress = 60,curLocation = 'SGOD',datereceived = xdate WHERE itemno = xitem limit 1;
 END//
 DELIMITER ;
 
@@ -356,6 +406,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `set-hrmo-process`(IN `xdate` DATE, 
 BEGIN
 	UPDATE tblprocess set hrmodatereleased = xdate,isHRMO = 'YES' WHERE itemno = xitem limit 1;
 	UPDATE tblprocess set bodatereceived = xdate WHERE itemno = xitem limit 1;
+	UPDATE tblitemTracker set progress = 50,curLocation = 'BUDGET',datereceived = xdate WHERE itemno = xitem limit 1;
 END//
 DELIMITER ;
 
@@ -364,8 +415,9 @@ DELIMITER ;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `set-sds-process`(IN `xdate` DATE, IN `xitem` VARCHAR(50))
 BEGIN
-	UPDATE tblprocess set sdsdatereleased = xdate,isBO = 'YES' WHERE itemno = xitem limit 1;
+	UPDATE tblprocess set sdsdatereleased = xdate,isSDS = 'YES' WHERE itemno = xitem limit 1;
 	UPDATE tbltransmission set ready = 1 WHERE itemno = xitem limit 1;
+	UPDATE tblitemTracker set progress = 90,curLocation = 'HRMO',datereceived = xdate WHERE itemno = xitem limit 1;
 END//
 DELIMITER ;
 
@@ -376,6 +428,16 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `set-sgod-process`(IN `xdate` DATE, 
 BEGIN
 	UPDATE tblprocess set sgoddatereleased = xdate,isSGOD = 'YES' WHERE itemno = xitem limit 1;
 	UPDATE tblprocess set asdsdatereceived = xdate WHERE itemno = xitem limit 1;
+	UPDATE tblitemTracker set progress = 70,curLocation = 'ASDS',datereceived = xdate WHERE itemno = xitem limit 1;
+END//
+DELIMITER ;
+
+
+-- Dumping structure for procedure depeddoctracking.set-user
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `set-user`(IN `uname` VARCHAR(50), IN `pword` VARCHAR(50), IN `uid` INT)
+BEGIN
+UPDATE tblusers set UserName = uname, Password = pword WHERE userID = uid limit 1;
 END//
 DELIMITER ;
 
@@ -394,11 +456,9 @@ CREATE TABLE IF NOT EXISTS `tblappointee` (
   KEY `position` (`position`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table depeddoctracking.tblappointee: ~1 rows (approximately)
+-- Dumping data for table depeddoctracking.tblappointee: ~0 rows (approximately)
 DELETE FROM `tblappointee`;
 /*!40000 ALTER TABLE `tblappointee` DISABLE KEYS */;
-INSERT INTO `tblappointee` (`itemno`, `name`, `position`, `category`, `dateinformed`, `reply`, `schoolID`, `schoolName`) VALUES
-	('Deped-001', 'Juan Dela Cruz', 'Teacher 3', 'New', '2016-09-15', 'ok', '107001', 'Agusuhin ES');
 /*!40000 ALTER TABLE `tblappointee` ENABLE KEYS */;
 
 
@@ -411,11 +471,9 @@ CREATE TABLE IF NOT EXISTS `tblappointeeprogress` (
   CONSTRAINT `itemprogress` FOREIGN KEY (`itemno`) REFERENCES `tblappointee` (`itemno`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='progressbar on front end';
 
--- Dumping data for table depeddoctracking.tblappointeeprogress: ~1 rows (approximately)
+-- Dumping data for table depeddoctracking.tblappointeeprogress: ~0 rows (approximately)
 DELETE FROM `tblappointeeprogress`;
 /*!40000 ALTER TABLE `tblappointeeprogress` DISABLE KEYS */;
-INSERT INTO `tblappointeeprogress` (`itemno`, `name`, `progress`) VALUES
-	('Deped-001', 'Juan Dela Cruz', 0);
 /*!40000 ALTER TABLE `tblappointeeprogress` ENABLE KEYS */;
 
 
@@ -434,9 +492,25 @@ CREATE TABLE IF NOT EXISTS `tblcongratulatory` (
 -- Dumping data for table depeddoctracking.tblcongratulatory: ~1 rows (approximately)
 DELETE FROM `tblcongratulatory`;
 /*!40000 ALTER TABLE `tblcongratulatory` DISABLE KEYS */;
-INSERT INTO `tblcongratulatory` (`itemno`, `hrmodate`, `isSDS`, `duedate`, `SDSreleaseddate`, `ok`) VALUES
-	('Deped-001', '2016-09-27', 'YES', '2016-09-27', '2016-11-08', 'YES');
 /*!40000 ALTER TABLE `tblcongratulatory` ENABLE KEYS */;
+
+
+-- Dumping structure for table depeddoctracking.tblitemtracker
+CREATE TABLE IF NOT EXISTS `tblitemtracker` (
+  `itemno` varchar(50) DEFAULT NULL,
+  `progress` smallint(6) DEFAULT NULL,
+  `curLocation` varchar(50) DEFAULT NULL,
+  `datereceived` date DEFAULT NULL,
+  UNIQUE KEY `itemno` (`itemno`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- Dumping data for table depeddoctracking.tblitemtracker: 2 rows
+DELETE FROM `tblitemtracker`;
+/*!40000 ALTER TABLE `tblitemtracker` DISABLE KEYS */;
+INSERT INTO `tblitemtracker` (`itemno`, `progress`, `curLocation`, `datereceived`) VALUES
+	('Deped-002', 80, 'SDS', '2016-09-17'),
+	('asdasd', 50, 'BUDGET', '2016-09-18');
+/*!40000 ALTER TABLE `tblitemtracker` ENABLE KEYS */;
 
 
 -- Dumping structure for table depeddoctracking.tblpositions
@@ -451,12 +525,9 @@ CREATE TABLE IF NOT EXISTS `tblpositions` (
   PRIMARY KEY (`itemno`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- Dumping data for table depeddoctracking.tblpositions: 2 rows
+-- Dumping data for table depeddoctracking.tblpositions: 0 rows
 DELETE FROM `tblpositions`;
 /*!40000 ALTER TABLE `tblpositions` DISABLE KEYS */;
-INSERT INTO `tblpositions` (`itemno`, `position`, `positioncategory`, `schoollevel`, `district`, `schoolid`, `schoolname`) VALUES
-	('Deped-002', 'Principal 1', 'New', 'Secondary', 'Subic', '301013', 'Agusuhin IS'),
-	('asdasd', 'Teacher 3', 'Promotion', 'Secondary', 'Candelaria', '307120', 'Pamibian IS');
 /*!40000 ALTER TABLE `tblpositions` ENABLE KEYS */;
 
 
@@ -482,11 +553,9 @@ CREATE TABLE IF NOT EXISTS `tblprocess` (
   CONSTRAINT `itemno1` FOREIGN KEY (`itemno`) REFERENCES `tblappointee` (`itemno`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table depeddoctracking.tblprocess: ~1 rows (approximately)
+-- Dumping data for table depeddoctracking.tblprocess: ~0 rows (approximately)
 DELETE FROM `tblprocess`;
 /*!40000 ALTER TABLE `tblprocess` DISABLE KEYS */;
-INSERT INTO `tblprocess` (`itemno`, `isHRMO`, `hrmodatereceived`, `hrmodatereleased`, `isBO`, `bodatereceived`, `bodatereleased`, `isSGOD`, `sgoddatereceived`, `sgoddatereleased`, `isASDS`, `asdsdatereceived`, `asdsdatereleased`, `isSDS`, `sdsdatereceived`, `sdsdatereleased`) VALUES
-	('Deped-001', 'YES', '2016-11-08', '2016-09-27', 'YES', '2016-09-27', '2016-09-15', 'YES', '2016-09-15', '2016-09-18', 'NO', '2016-09-18', '2016-09-15', 'NO', '2016-09-15', '2016-09-22');
 /*!40000 ALTER TABLE `tblprocess` ENABLE KEYS */;
 
 
@@ -499,11 +568,9 @@ CREATE TABLE IF NOT EXISTS `tblremarks` (
   CONSTRAINT `itemno2` FOREIGN KEY (`itemno`) REFERENCES `tblappointee` (`itemno`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table depeddoctracking.tblremarks: ~1 rows (approximately)
+-- Dumping data for table depeddoctracking.tblremarks: ~0 rows (approximately)
 DELETE FROM `tblremarks`;
 /*!40000 ALTER TABLE `tblremarks` DISABLE KEYS */;
-INSERT INTO `tblremarks` (`itemno`, `effectivity`, `remarks`) VALUES
-	('Deped-001', '2016-09-15', 'RETURNED FOR COMPLIANCE');
 /*!40000 ALTER TABLE `tblremarks` ENABLE KEYS */;
 
 
@@ -517,15 +584,19 @@ CREATE TABLE IF NOT EXISTS `tbltransmission` (
   `datereceivedSDS` date DEFAULT NULL,
   `dateAwarded` date DEFAULT NULL,
   `releasedToRecords` date DEFAULT NULL,
+  `recordsreceived` date DEFAULT NULL,
+  `releasedAttested` date DEFAULT NULL,
   `ready` tinyint(4) DEFAULT '0',
   UNIQUE KEY `itemno` (`itemno`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- Dumping data for table depeddoctracking.tbltransmission: 1 rows
+-- Dumping data for table depeddoctracking.tbltransmission: 3 rows
 DELETE FROM `tbltransmission`;
 /*!40000 ALTER TABLE `tbltransmission` DISABLE KEYS */;
-INSERT INTO `tbltransmission` (`itemno`, `hrmoreceived`, `transmittedCSC`, `receivedCSC`, `releasedToSDS`, `datereceivedSDS`, `dateAwarded`, `releasedToRecords`, `ready`) VALUES
-	('Deped-001', '2016-09-15', '2016-09-15', '2016-09-20', '2016-09-15', '2016-09-15', '2016-09-15', '2016-09-15', 1);
+INSERT INTO `tbltransmission` (`itemno`, `hrmoreceived`, `transmittedCSC`, `receivedCSC`, `releasedToSDS`, `datereceivedSDS`, `dateAwarded`, `releasedToRecords`, `recordsreceived`, `releasedAttested`, `ready`) VALUES
+	('Deped-001', '2016-09-15', '2016-09-16', '2016-09-20', '2016-09-22', '2016-09-15', NULL, '2016-09-15', '2016-09-15', '2016-09-17', 1),
+	('Deped-002', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+	('asdasd', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
 /*!40000 ALTER TABLE `tbltransmission` ENABLE KEYS */;
 
 
@@ -536,7 +607,7 @@ CREATE TABLE IF NOT EXISTS `tblusers` (
   `Password` varchar(150) NOT NULL,
   `Privilege` varchar(50) NOT NULL,
   PRIMARY KEY (`userID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table depeddoctracking.tblusers: ~6 rows (approximately)
 DELETE FROM `tblusers`;
@@ -545,10 +616,42 @@ INSERT INTO `tblusers` (`userID`, `UserName`, `Password`, `Privilege`) VALUES
 	(1, 'HRMO', 'hrmo', 'HRMO'),
 	(2, 'SGOD', 'sgod', 'SGOD'),
 	(3, 'SDS', 'sds', 'SDS'),
-	(4, 'BO', 'bo', 'BUDGET'),
+	(4, 'BUDGET', 'budget', 'BUDGET'),
 	(5, 'ASDS', 'asds', 'ASDS'),
-	(6, 'RECORDS', 'records', 'RECORDS');
+	(6, 'RECORDS', 'records', 'RECORDS'),
+	(7, 'ADMIN', 'admin', 'ADMINISTRATOR');
 /*!40000 ALTER TABLE `tblusers` ENABLE KEYS */;
+
+
+-- Dumping structure for procedure depeddoctracking.track-warning
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `track-warning`()
+BEGIN
+	SELECT a.itemno,a.name,a.schoolID,a.schoolName,a.position,DATEDIFF(NOW(),c.duedate),c.duedate from tblappointee as a
+	LEFT JOIN tblcongratulatory as c
+	on a.itemno = c.itemno
+	WHERE DATEDIFF(NOW(),c.duedate) = 0;
+END//
+DELIMITER ;
+
+
+-- Dumping structure for procedure depeddoctracking.update-recordawards
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update-recordawards`(IN `xdate` DATE, IN `xitem` VARCHAR(50))
+BEGIN
+	UPDATE tbltransmission set releasedAttested = xdate WHERE itemno = xitem limit 1;
+	UPDATE tblitemTracker set progress = 100,curLocation = 'BUDGET',datereceived = xdate WHERE itemno = xitem limit 1;
+END//
+DELIMITER ;
+
+
+-- Dumping structure for procedure depeddoctracking.update-recordsreceived
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update-recordsreceived`(IN `xdate` DATE, IN `xitem` VARCHAR(50))
+BEGIN
+	UPDATE tbltransmission set recordsreceived = xdate WHERE itemno = xitem limit 1;
+END//
+DELIMITER ;
 
 
 -- Dumping structure for procedure depeddoctracking.updateCongratulatory
@@ -571,6 +674,8 @@ CREATE TRIGGER `fillposition` AFTER INSERT ON `tblappointee` FOR EACH ROW BEGIN
 	INSERT into tblremarks(`itemno`)VALUES(NEW.itemno);
 	INSERT into tblappointeeprogress(`itemno`,`name`)VALUES(NEW.itemno,NEW.name);
 	INSERT into tbltransmission(`itemno`)VALUES(NEW.itemno);
+	INSERT into tblitemTracker(`itemno`)VALUES(NEW.itemno);
+	UPDATE tblitemTracker SET progress = 20,curLocation = 'HRMO',datereceived = NOW() WHERE itemno = new.itemno limit 1;
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
