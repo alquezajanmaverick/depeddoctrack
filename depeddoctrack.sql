@@ -17,9 +17,9 @@ USE `depeddoctracking`;
 
 -- Dumping structure for procedure depeddoctracking.addappointee
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `addappointee`(IN `itemno` VARCHAR(50), IN `name` VARCHAR(50), IN `pos` VARCHAR(50), IN `cat` VARCHAR(50), IN `dateinformed` DATE, IN `reply` VARCHAR(50), IN `si` VARCHAR(50), IN `sn` VARCHAR(50), IN `effect` DATE, IN `remark` VARCHAR(50))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addappointee`(IN `itemno` VARCHAR(50), IN `name` VARCHAR(50), IN `pos` VARCHAR(50), IN `cat` VARCHAR(50), IN `dateinformed` DATE, IN `reply` VARCHAR(50), IN `si` VARCHAR(50), IN `sn` VARCHAR(50), IN `effect` DATE, IN `remark` VARCHAR(50), IN `xdate` DATE)
 BEGIN
-INSERT INTO `tblappointee`(`itemno`, `name`, `position`,`category`, `dateinformed`, `reply`,`schoolID`,`schoolName`) VALUES (itemno,name,pos,cat,dateinformed,reply,si,sn);
+INSERT INTO `tblappointee`(`itemno`, `name`, `position`,`category`, `dateinformed`, `reply`,`schoolID`,`schoolName`,`duedate`) VALUES (itemno,name,pos,cat,dateinformed,reply,si,sn,xdate);
 UPDATE `tblremarks` set `effectivity`=effect,`remarks`=remark WHERE `itemno` = itemno;
 END//
 DELIMITER ;
@@ -54,9 +54,9 @@ DELIMITER ;
 
 -- Dumping structure for procedure depeddoctracking.editappointee
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `editappointee`(IN `itemkey` VARCHAR(50), IN `namekey` VARCHAR(50), IN `datekey` VARCHAR(50), IN `replykey` VARCHAR(50), IN `effectivitykey` DATE, IN `remarkskey` TEXT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `editappointee`(IN `itemkey` VARCHAR(50), IN `namekey` VARCHAR(50), IN `datekey` VARCHAR(50), IN `replykey` VARCHAR(50), IN `effectivitykey` DATE, IN `remarkskey` TEXT, IN `xduedate` DATE)
 BEGIN
-	UPDATE `tblappointee` SET `name`=namekey,`dateinformed`=datekey,`reply`=replykey WHERE `itemno` = itemkey limit 1;
+	UPDATE `tblappointee` SET `name`=namekey,`dateinformed`=datekey,`reply`=replykey,`duedate`=xduedate WHERE `itemno` = itemkey limit 1;
 	UPDATE `tblremarks` SET `effectivity`=effectivitykey,`remarks`=remarkskey WHERE `itemno` = itemkey limit 1;
 END//
 DELIMITER ;
@@ -117,7 +117,7 @@ BEGIN
 	SELECT * from tblcongratulatory as c
 	LEFT JOIN tblappointee as a
 	on c.itemno = a.itemno
-	where c.isSDS LIKE 'YES' AND c.ok like 'NO';
+	where c.hrmodate is not null;
 	
 END//
 DELIMITER ;
@@ -442,6 +442,18 @@ END//
 DELIMITER ;
 
 
+-- Dumping structure for procedure depeddoctracking.single-congratulatory
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `single-congratulatory`(IN `xitem` VARCHAR(50))
+BEGIN
+	SELECT a.itemno,a.name,a.position,a.schoolName,a.dateinformed,c.duedate,c.hrmodate,c.isSDS,c.ok,r.effectivity,r.remarks from tblappointee as a
+	left join tblcongratulatory as c on a.itemno = c.itemno
+	left join tblremarks as r on a.itemno = r.itemno
+	WHERE a.itemno = xitem;
+END//
+DELIMITER ;
+
+
 -- Dumping structure for table depeddoctracking.tblappointee
 CREATE TABLE IF NOT EXISTS `tblappointee` (
   `itemno` varchar(150) NOT NULL,
@@ -452,15 +464,19 @@ CREATE TABLE IF NOT EXISTS `tblappointee` (
   `reply` varchar(50) DEFAULT NULL,
   `schoolID` varchar(50) DEFAULT NULL,
   `schoolName` varchar(50) DEFAULT NULL,
+  `duedate` date DEFAULT NULL,
   PRIMARY KEY (`itemno`),
   KEY `position` (`position`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table depeddoctracking.tblappointee: ~1 rows (approximately)
+-- Dumping data for table depeddoctracking.tblappointee: ~4 rows (approximately)
 DELETE FROM `tblappointee`;
 /*!40000 ALTER TABLE `tblappointee` DISABLE KEYS */;
-INSERT INTO `tblappointee` (`itemno`, `name`, `position`, `category`, `dateinformed`, `reply`, `schoolID`, `schoolName`) VALUES
-	('DepEd-001', 'Juan Dela Cruz', 'Teacher 3', 'Promotion', '2016-09-19', 'TEST', '307133', 'San Agustin IS');
+INSERT INTO `tblappointee` (`itemno`, `name`, `position`, `category`, `dateinformed`, `reply`, `schoolID`, `schoolName`, `duedate`) VALUES
+	('Depd124', 'Marlon', 'Teacher 3', 'Promotion', '2016-09-20', 'TEST', '106985', 'Pamonoran ES', NULL),
+	('DepEd-001', 'Juan Dela Cruz', 'Teacher 3', 'Promotion', '2016-09-19', 'TEST', '307133', 'San Agustin IS', '2016-09-22'),
+	('Deped111', 'Jan Lang', 'TEST', 'Promotion', '2016-09-20', 'test', '106998', 'San Fernando ES', '2016-09-21'),
+	('Dped2', 'Mr. Right', 'Principal 1', 'Promotion', '2016-09-20', 'OK', '106986', 'Sta. Cruz North CS', '2016-09-21');
 /*!40000 ALTER TABLE `tblappointee` ENABLE KEYS */;
 
 
@@ -473,11 +489,14 @@ CREATE TABLE IF NOT EXISTS `tblappointeeprogress` (
   CONSTRAINT `itemprogress` FOREIGN KEY (`itemno`) REFERENCES `tblappointee` (`itemno`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='progressbar on front end';
 
--- Dumping data for table depeddoctracking.tblappointeeprogress: ~1 rows (approximately)
+-- Dumping data for table depeddoctracking.tblappointeeprogress: ~4 rows (approximately)
 DELETE FROM `tblappointeeprogress`;
 /*!40000 ALTER TABLE `tblappointeeprogress` DISABLE KEYS */;
 INSERT INTO `tblappointeeprogress` (`itemno`, `name`, `progress`) VALUES
-	('DepEd-001', 'Juan Dela Cruz', 0);
+	('DepEd-001', 'Juan Dela Cruz', 0),
+	('Dped2', 'Mr. Right', 0),
+	('Depd124', 'Marlon', 0),
+	('Deped111', 'Jan Lang', 0);
 /*!40000 ALTER TABLE `tblappointeeprogress` ENABLE KEYS */;
 
 
@@ -493,11 +512,14 @@ CREATE TABLE IF NOT EXISTS `tblcongratulatory` (
   CONSTRAINT `itemno` FOREIGN KEY (`itemno`) REFERENCES `tblappointee` (`itemno`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table depeddoctracking.tblcongratulatory: ~1 rows (approximately)
+-- Dumping data for table depeddoctracking.tblcongratulatory: ~4 rows (approximately)
 DELETE FROM `tblcongratulatory`;
 /*!40000 ALTER TABLE `tblcongratulatory` DISABLE KEYS */;
 INSERT INTO `tblcongratulatory` (`itemno`, `hrmodate`, `isSDS`, `duedate`, `SDSreleaseddate`, `ok`) VALUES
-	('DepEd-001', NULL, 'NO', NULL, NULL, 'NO');
+	('Depd124', '2016-09-21', 'YES', NULL, '2016-09-21', 'NO'),
+	('DepEd-001', '2016-09-29', 'YES', NULL, NULL, 'YES'),
+	('Deped111', NULL, 'NO', NULL, NULL, 'NO'),
+	('Dped2', '2016-09-22', 'YES', NULL, '2016-09-20', 'NO');
 /*!40000 ALTER TABLE `tblcongratulatory` ENABLE KEYS */;
 
 
@@ -510,13 +532,16 @@ CREATE TABLE IF NOT EXISTS `tblitemtracker` (
   UNIQUE KEY `itemno` (`itemno`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- Dumping data for table depeddoctracking.tblitemtracker: 2 rows
+-- Dumping data for table depeddoctracking.tblitemtracker: 6 rows
 DELETE FROM `tblitemtracker`;
 /*!40000 ALTER TABLE `tblitemtracker` DISABLE KEYS */;
 INSERT INTO `tblitemtracker` (`itemno`, `progress`, `curLocation`, `datereceived`) VALUES
 	('Deped-002', 80, 'SDS', '2016-09-17'),
 	('asdasd', 50, 'BUDGET', '2016-09-18'),
-	('DepEd-001', 20, 'HRMO', '2016-09-19');
+	('DepEd-001', 20, 'HRMO', '2016-09-19'),
+	('Dped2', 40, 'HRMO', '2016-09-20'),
+	('Depd124', 40, 'HRMO', '2016-09-21'),
+	('Deped111', 20, 'HRMO', '2016-09-20');
 /*!40000 ALTER TABLE `tblitemtracker` ENABLE KEYS */;
 
 
@@ -560,11 +585,14 @@ CREATE TABLE IF NOT EXISTS `tblprocess` (
   CONSTRAINT `itemno1` FOREIGN KEY (`itemno`) REFERENCES `tblappointee` (`itemno`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table depeddoctracking.tblprocess: ~1 rows (approximately)
+-- Dumping data for table depeddoctracking.tblprocess: ~4 rows (approximately)
 DELETE FROM `tblprocess`;
 /*!40000 ALTER TABLE `tblprocess` DISABLE KEYS */;
 INSERT INTO `tblprocess` (`itemno`, `isHRMO`, `hrmodatereceived`, `hrmodatereleased`, `isBO`, `bodatereceived`, `bodatereleased`, `isSGOD`, `sgoddatereceived`, `sgoddatereleased`, `isASDS`, `asdsdatereceived`, `asdsdatereleased`, `isSDS`, `sdsdatereceived`, `sdsdatereleased`) VALUES
-	('DepEd-001', 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL);
+	('DepEd-001', 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL),
+	('Dped2', 'NO', '2016-09-20', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL),
+	('Depd124', 'NO', '2016-09-21', NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL),
+	('Deped111', 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL, 'NO', NULL, NULL);
 /*!40000 ALTER TABLE `tblprocess` ENABLE KEYS */;
 
 
@@ -577,11 +605,14 @@ CREATE TABLE IF NOT EXISTS `tblremarks` (
   CONSTRAINT `itemno2` FOREIGN KEY (`itemno`) REFERENCES `tblappointee` (`itemno`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table depeddoctracking.tblremarks: ~1 rows (approximately)
+-- Dumping data for table depeddoctracking.tblremarks: ~4 rows (approximately)
 DELETE FROM `tblremarks`;
 /*!40000 ALTER TABLE `tblremarks` DISABLE KEYS */;
 INSERT INTO `tblremarks` (`itemno`, `effectivity`, `remarks`) VALUES
-	('DepEd-001', '2016-09-19', 'NOT SUBMITTED');
+	('Depd124', '2016-09-20', 'NOT SUBMITTED'),
+	('DepEd-001', '2016-09-20', 'NOT SUBMITTED'),
+	('Deped111', '2016-09-20', 'NOT SUBMITTED'),
+	('Dped2', '2016-09-20', 'NOT SUBMITTED');
 /*!40000 ALTER TABLE `tblremarks` ENABLE KEYS */;
 
 
@@ -601,11 +632,14 @@ CREATE TABLE IF NOT EXISTS `tbltransmission` (
   UNIQUE KEY `itemno` (`itemno`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- Dumping data for table depeddoctracking.tbltransmission: 3 rows
+-- Dumping data for table depeddoctracking.tbltransmission: 4 rows
 DELETE FROM `tbltransmission`;
 /*!40000 ALTER TABLE `tbltransmission` DISABLE KEYS */;
 INSERT INTO `tbltransmission` (`itemno`, `hrmoreceived`, `transmittedCSC`, `receivedCSC`, `releasedToSDS`, `datereceivedSDS`, `dateAwarded`, `releasedToRecords`, `recordsreceived`, `releasedAttested`, `ready`) VALUES
-	('DepEd-001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
+	('Depd124', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+	('Dped2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+	('DepEd-001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+	('Deped111', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
 /*!40000 ALTER TABLE `tbltransmission` ENABLE KEYS */;
 
 
@@ -665,10 +699,9 @@ DELIMITER ;
 
 -- Dumping structure for procedure depeddoctracking.updateCongratulatory
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updateCongratulatory`(IN `datereleased` DATE, IN `releasedtoSDS` CHAR(50), IN `xduedate` DATE, IN `xitem` VARCHAR(50), IN `effectivity` DATE, IN `remarks` CHAR(50))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateCongratulatory`(IN `datereleased` DATE, IN `releasedtoSDS` CHAR(50), IN `xitem` VARCHAR(50))
 BEGIN
-	UPDATE `tblcongratulatory` SET `hrmodate`=datereleased,`isSDS`=releasedtoSDS,`duedate`=xduedate WHERE `itemno`=xitem limit 1;
-	UPDATE `tblremarks` SET `effectivity`=effectivity,`remarks`= remarks WHERE `itemno`=xitem limit 1;
+	UPDATE `tblcongratulatory` SET `hrmodate`=datereleased,`isSDS`=releasedtoSDS WHERE `itemno`=xitem limit 1;
 END//
 DELIMITER ;
 
