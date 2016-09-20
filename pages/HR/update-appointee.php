@@ -139,6 +139,17 @@ if(isset($_GET['itemno'])){
                                     </span>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">Due-date of Submission :</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="duedate" ng-model="duedate" class="form-control" id="effectivity" placeholder="Due-date of Submission"  uib-datepicker-popup="yyyy-MM-dd" datepicker-options="datepicker" is-open="popup4.opened" ng-init="parseme4('<?php echo $x['duedate']; ?>')" required>
+                                <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open4()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label for="category" class="col-sm-2 control-label">Remarks :</label>
                             <div class="col-sm-10">

@@ -8,6 +8,11 @@ app.controller('updtCtrl',function($scope){
 		$scope.x = new Date(x);
 		$scope.dateinformed = $scope.x;	
 	}
+
+	$scope.parseme4 = function(x){
+		$scope.x = new Date(x);
+		$scope.duedate = $scope.x;	
+	}
 	
 	$scope.parseme2 = function(x){
 		$scope.x = new Date(x);
@@ -15,6 +20,11 @@ app.controller('updtCtrl',function($scope){
 	}
 	$scope.open2 = function() {
 			$scope.popup2.opened = true;
+		};
+
+		$scope.open4 = function() {
+			$scope.popup4.opened = true;
+			console.log($scope.popup4.opened)
 		};
 	
 	$scope.today = function() {
@@ -46,6 +56,10 @@ app.controller('updtCtrl',function($scope){
 		$scope.altInputFormats = ['yyy-MM-dd'];
 
 		$scope.popup2 = {
+			opened: false
+		};
+
+		$scope.popup4= {
 			opened: false
 		};
 		

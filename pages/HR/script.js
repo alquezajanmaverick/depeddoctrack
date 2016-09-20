@@ -16,18 +16,10 @@ app.controller('assignCtrl',function($scope){
 
 
 
-		// Disable weekend selection
-		function disabled(data) {
-			var date = data.date,
-			mode = data.mode;
-			return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
-		}
 
-
-		$scope.open2 = function() {
-			$scope.popup2.opened = true;
+		$scope.open4 = function() {
+			$scope.popup4.opened = true;
 		};
-
 
 		$scope.formats = ['yyyy-MM-dd'];
 		$scope.format = $scope.formats[0];
@@ -59,6 +51,10 @@ app.controller('assignCtrl',function($scope){
 		$scope.altInputFormats = ['yyy-MM-dd'];
 
 		$scope.popup = {
+			opened: false
+		};
+
+		$scope.popup4 = {
 			opened: false
 		};
 });

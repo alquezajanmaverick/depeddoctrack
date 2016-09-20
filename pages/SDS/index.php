@@ -8,7 +8,7 @@
             <a class="navbar-brand" href="#">SDS</a>
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a href="congratulatory.php">Congratulatory</a>
+                    <a href="index.php">Congratulatory</a>
                 </li>
                 <li>
                     <a href="process/">Process of Appointment</a>

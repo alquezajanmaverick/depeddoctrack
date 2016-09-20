@@ -72,7 +72,6 @@ $r = $db->rowCount();
                         <th><center>Position</center></th>
                         <th><center>Assigned to</center></th>
                         <th><center>Date Informed</center></th>
-                        <th><center>Due Date of Submission</center></th>
                         <th><center>Date Released to SDS</center></th>
                         <th><center>Complete</center></th>
                         <th><center></center></th>
@@ -89,7 +88,6 @@ $r = $db->rowCount();
                         <td><center><?php echo $c['position']; ?></center></td>
                         <td><center><?php echo $c['schoolName']; ?></center></td>
                         <td><center><?php echo $c['dateinformed']; ?></center></td>
-                        <td><center><?php echo $c['duedate']; ?></center></td>
                         <td><center><?php echo $c['hrmodate']; ?></center></td>
                         <td><center><?php echo $c['ok']; ?></center></td>
                         <td><center><button class="btn btn-xs btn-warning glyphicon glyphicon-edit" onclick="window.location.assign('update-congratulatory.php?itemno=<?php echo $c['itemno']; ?>')"> UPDATE</button></center></td>

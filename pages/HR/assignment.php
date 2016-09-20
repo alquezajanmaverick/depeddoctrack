@@ -73,6 +73,7 @@
                     <th><center>Assigned School</center></th>
                     <th><center>Date Informed</center></th>
                     <th><center>Effectivity of Appointment</center></th>
+                    <th><center>Due Date of Submission</center></th>
                     <th><center>Remarks</center></th>
                     <th colspan="2"><center></center></th>
                 </tr>
@@ -86,6 +87,7 @@
                     <td><center>{{x.schoolName}}</center></td>
                     <td><center>{{x.dateinformed}}</center></td>
                     <td><center>{{x.effectivity}}</center></td>
+                    <td><center>{{x.duedate}}</center></td>
                     <td><center>{{x.remarks}}</center></td>
                     <td><center><button ng-click="updateappointee(x.itemno)" class="btn btn-xs btn-warning glyphicon glyphicon-edit"> UPDATE</button></center></td>
                     <td><center><button ng-click="delappointee(x.itemno)" class="btn btn-xs btn-danger glyphicon glyphicon-trash"> DELETE</button></center></td>

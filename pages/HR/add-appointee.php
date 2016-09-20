@@ -125,6 +125,8 @@
                                     </span>
                                     </div>
                                 </div>
+
+                                
                                 <div class="col-md-6">
                                     <label for="reply" class="col-sm-2 control-label">Reply :</label>
                                     <div class="col-sm-10">
@@ -133,6 +135,17 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">Due date of Submission :</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="duedate" ng-model="duedate" class="form-control" id="duedate" placeholder="Due-date of Submission"  uib-datepicker-popup="yyyy-MM-dd" datepicker-options="datepicker" is-open="popup4.opened" required>
+                                <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open4()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label for="name" class="col-sm-2 control-label">Effectivity of Appointment :</label>
                             <div class="col-sm-10">
@@ -142,6 +155,7 @@
                                     </span>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label for="category" class="col-sm-2 control-label">Remarks :</label>
                             <div class="col-sm-10">

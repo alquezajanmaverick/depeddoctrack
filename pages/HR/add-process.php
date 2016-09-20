@@ -3,7 +3,7 @@ require_once("../../connection/PHPpdo.php");
 	
 	if(isset($_POST['schoolname'])){
 		$db = new DatabaseConnect();
-		$db->query("CALL addappointee(?,?,?,?,?,?,?,?,?,?)");
+		$db->query("CALL addappointee(?,?,?,?,?,?,?,?,?,?,?)");
 		$db->bind(1,$_POST['itemno']);
 		$db->bind(2,$_POST['name']);
 		$db->bind(3,$_POST['pos']);
@@ -14,6 +14,7 @@ require_once("../../connection/PHPpdo.php");
 		$db->bind(8,$_POST['schoolname']);
 		$db->bind(9,$_POST['effectivity']);
 		$db->bind(10,$_POST['remarks']);
+		$db->bind(11,$_POST['duedate']);
 		if($db->execute())
 		{
 			header("Location:assignment.php")	;

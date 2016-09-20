@@ -2,7 +2,8 @@
 require_once("../../connection/PHPpdo.php");
 if(isset($_GET['itemno'])){
 	$db = new DatabaseConnect();
-	$db->query("CALL forcongratulatory");
+	$db->query("CALL `single-congratulatory`(?)");
+    $db->bind(1,$_GET['itemno']);
 	$x =$db->single();
 }
 
@@ -91,25 +92,7 @@ if(isset($_GET['itemno'])){
                             <input type="text" class="form-control" id="schoolname" name="schoolname" placeholder="School Name" value="<?php echo $x['schoolName']; ?>" required readonly>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="dateinformed" class="col-sm-2 control-label">Date Informed</label>
-                        <div class="col-sm-10">
-                            <div class="col-sm-10">
-                                <input type="text" name="effectivity" ng-model="dateinformed" class="form-control" id="effectivity" placeholder="Date Informed"  uib-datepicker-popup="yyyy-MM-dd" datepicker-options="datepicker" is-open="popup.opened" ng-init="parseme('<?php echo $x['dateinformed']; ?>')" readonly>
-                                <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
-                                </span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="duedate" class="col-sm-2 control-label">Due Date of Submission</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="duedate" ng-model="duedate" class="form-control" id="duedate" placeholder="Due Date of Submission"  uib-datepicker-popup="yyyy-MM-dd" datepicker-options="datepicker" is-open="popup1.opened" ng-init="parseme2('<?php echo $x['duedate']; ?>')">
-                                <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-                                </span>
-                        </div>
-                    </div>
+                    
                     <div class="form-group">
                         <label for="datereleased" class="col-sm-2 control-label">Date Released to SDS</label>
                         <div class="col-sm-10">
@@ -130,26 +113,6 @@ if(isset($_GET['itemno'])){
                         </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="effectivity" class="col-sm-2 control-label">Effectivity of Appointment</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="effectivity" ng-model="effectivity" class="form-control" id="effectivity" placeholder="Effectivity of Appointment"  uib-datepicker-popup="yyyy-MM-dd" datepicker-options="datepicker" is-open="popup3.opened" ng-init="parseme4('<?php echo $x['effectivity']; ?>')">
-                                <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
-                                </span>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="remarks" class="col-sm-2 control-label">Remarks</label>
-                        <div class="col-sm-10">
-                            <select class="form-control" name="remarks" id="remarks" ng-model="remarks" ng-init="remarks = <?php echo $x['remarks']; ?>">
-                            	<option value="NOT SUBMITTED">NOT SUBMITTED</option>
-                                <option value="RETURNED FOR COMPLIANCE">RETURNED FOR COMPLIANCE</option>
-                                <option value="COMPLETED AND RECEIVED">COMPLETED AND RECEIVED</option>
-                            </select>
-                        </div>
-                    </div>
                     
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
